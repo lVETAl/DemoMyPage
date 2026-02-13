@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <title>Симина Елизавета · ITMO · марочное резюме</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Font Awesome 6 (иконки рыб, кода, путешествий) -->
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Японский шрифт + основной гротеск -->
+  <!-- Шрифты -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500&family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
   <style>
-    /* ---------- ПЕРЕМЕННЫЕ И СБРОС ---------- */
+    /* ---------- ПЕРЕМЕННЫЕ ---------- */
     * {
       margin: 0;
       padding: 0;
@@ -17,13 +17,13 @@
     }
 
     :root {
-      --bg: #f2ebdf;              /* тёплая бумажная основа */
-      --paper: #fffaf2;            /* цвет «марки» */
+      --bg: #f2ebdf;              /* база под бумагу */
+      --paper: #fffaf2;            /* цвет марки */
       --text: #1b1b1b;
-      --accent: #8c2e2e;           /* тёмно‑красный, как сургуч */
-      --deep: #132029;             /* тёмно‑синий для хедера */
-      --ink: #2a4b5c;              /* бирюзовый оттенок (отсылка к морю) */
-      --gold: #b38b5d;             /* потускневшая латунь */
+      --accent: #8c2e2e;           /* тёмно-красный, сургуч */
+      --deep: #132029;             /* тёмно-синий */
+      --ink: #2a4b5c;              /* бирюзовый */
+      --gold: #b38b5d;             /* латунь */
     }
 
     html {
@@ -32,64 +32,73 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
       overflow-x: hidden;
       position: relative;
     }
 
-    /* ========== БУМАЖНАЯ ТЕКСТУРА ========== */
+    /* ========== РЕАЛИСТИЧНАЯ БУМАЖНАЯ ТЕКСТУРА ========== */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' /%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.04' /%3E%3C/svg%3E");
+      background-image: 
+        repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 8px),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.15 0"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.2"/></svg>');
+      background-repeat: repeat, repeat;
+      background-size: auto, 200px 200px;
+      pointer-events: none;
+      z-index: -2;
+      mix-blend-mode: multiply;
+    }
+
+    /* дополнительная кракелюрная текстура */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(140,46,46,0.03) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(42,75,92,0.03) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    /* ========== РЕАЛИСТИЧНЫЕ ГРАНАТЫ ========== */
+    .pomegranate-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       z-index: -3;
     }
 
-    /* ========== ГРАНАТЫ (из черновика) ========== */
-    .granate {
-      position: fixed;
-      top: 120px;
-      width: 280px;
-      opacity: 0.7;
-      z-index: -2;
-      animation: float 6s ease-in-out infinite;
-      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.1));
+    .pomegranate-left, .pomegranate-right {
+      position: absolute;
+      width: 400px;
+      height: auto;
+      filter: drop-shadow(0 15px 20px rgba(0,0,0,0.2));
+      opacity: 0.9;
     }
 
-    .granate.right {
-      right: -40px;
-      transform: scaleX(-1);
+    .pomegranate-left {
+      left: -80px;
+      top: 50px;
+      transform: rotate(-8deg);
     }
 
-    .granate.left {
-      left: -40px;
+    .pomegranate-right {
+      right: -80px;
+      top: 200px;
+      transform: scaleX(-1) rotate(5deg);
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(20px); }
-    }
-
-    .leaf {
-      transform-origin: center;
-      animation: leaf 4s ease-in-out infinite;
-    }
-
-    @keyframes leaf {
-      0%, 100% { transform: rotate(0); }
-      50% { transform: rotate(4deg); }
-    }
-
-    /* ========== ПАРАЛЛАКС ФОН ========== */
-    .parallax {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(140,46,46,0.1), transparent 50%),
-                  radial-gradient(circle at 80% 70%, rgba(42,75,92,0.1), transparent 50%);
-      z-index: -4;
+    /* фотореалистичный гранат (svg с деталями) */
+    .realistic-pomegranate svg {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     /* ========== НАВИГАЦИЯ ========== */
@@ -101,16 +110,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(255,250,242,0.8);
+      background: rgba(255,250,242,0.75);
       backdrop-filter: blur(8px);
       z-index: 1000;
-      border-bottom: 1px dashed var(--accent);
+      border-bottom: 2px solid rgba(140,46,46,0.3);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
 
     nav .logo {
       font-weight: 600;
       letter-spacing: 1px;
       color: var(--accent);
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
     }
 
     nav ul {
@@ -143,23 +154,25 @@
       color: white;
       position: relative;
       text-align: center;
+      box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
     }
 
     header h1 {
       font-family: 'Noto Serif JP', serif;
       font-size: clamp(3rem, 12vw, 5.5rem);
       letter-spacing: 0.1em;
-      text-shadow: 0 0 8px var(--accent), 2px 4px 10px rgba(0,0,0,0.6);
+      text-shadow: 0 0 15px var(--accent), 4px 6px 12px rgba(0,0,0,0.8);
     }
 
     header .sub {
       font-size: 1.4rem;
       margin-top: 1.5rem;
-      background: rgba(140,46,46,0.7);
+      background: rgba(140,46,46,0.8);
       padding: 0.6rem 2rem;
       border-radius: 40px;
       backdrop-filter: blur(4px);
       border: 1px solid var(--gold);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
     /* ========== ВЕРТИКАЛЬНЫЙ ТЕКСТ (ЯПОНСКИЙ) ========== */
@@ -169,17 +182,18 @@
       top: 50%;
       writing-mode: vertical-rl;
       font-family: 'Noto Serif JP', serif;
-      font-size: 22px;
-      letter-spacing: 8px;
+      font-size: 24px;
+      letter-spacing: 10px;
       color: var(--accent);
-      opacity: 0.6;
+      opacity: 0.7;
       transform: translateY(-50%);
       z-index: 500;
       pointer-events: none;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      filter: drop-shadow(0 0 4px rgba(140,46,46,0.3));
     }
 
-    /* ========== ОБЩИЕ СЕКЦИИ ========== */
+    /* ========== СЕКЦИИ ========== */
     section {
       padding: 100px 10%;
       position: relative;
@@ -193,47 +207,75 @@
       border-bottom: 3px dashed var(--accent);
       padding-bottom: 0.5rem;
       color: var(--deep);
+      text-shadow: 2px 2px 0 rgba(255,255,240,0.8);
     }
 
-    /* ========== МАРОЧНЫЙ БЛОК (STAMP) ========== */
+    /* ========== МАРКИ С РЕАЛИСТИЧНОЙ ФАКТУРОЙ ========== */
     .stamp {
       background: var(--paper);
       padding: 2rem;
       position: relative;
-      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.2));
-      transition: all 0.25s ease;
+      transition: all 0.3s ease;
       height: 100%;
       display: flex;
       flex-direction: column;
-      border: 1px solid rgba(0,0,0,0.1);
+      border: 1px solid rgba(0,0,0,0.15);
+      box-shadow: 
+        0 15px 25px -8px rgba(0,0,0,0.4),
+        inset 0 -2px 5px rgba(0,0,0,0.05),
+        inset 2px 2px 8px rgba(255,255,255,0.8);
+      border-radius: 2px 15px 15px 2px; /* лёгкая асимметрия как у старой марки */
+      background-image: 
+        repeating-linear-gradient(45deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 3px, transparent 3px, transparent 10px),
+        radial-gradient(circle at 20% 30%, rgba(140,46,46,0.02) 0%, transparent 30%);
     }
 
-    /* перфорация (зубцы) вокруг марки */
+    /* перфорация (зубцы) — более реалистичные дырочки с тенью */
     .stamp::before {
       content: "";
       position: absolute;
-      inset: -12px;
-      background: radial-gradient(circle, var(--bg) 6px, transparent 7px);
-      background-size: 20px 20px;
+      inset: -14px;
+      background: radial-gradient(circle at 30% 40%, rgba(0,0,0,0.25) 2px, transparent 3px);
+      background-size: 24px 24px;
       z-index: -1;
-      opacity: 0.9;
+      opacity: 0.5;
+      mask-image: radial-gradient(circle at 30% 40%, black 3px, transparent 3px);
+      mask-size: 24px 24px;
+      -webkit-mask-image: radial-gradient(circle at 30% 40%, black 3px, transparent 3px);
+      -webkit-mask-size: 24px 24px;
     }
 
-    /* внутренняя пунктирная рамка */
+    /* внутренняя рамка с эффектом тиснения */
     .stamp::after {
       content: "";
       position: absolute;
-      inset: 12px;
-      border: 1px dashed rgba(0,0,0,0.25);
+      inset: 10px;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 1px;
+      box-shadow: inset 0 0 5px rgba(255,255,200,0.3), 0 0 0 1px rgba(255,255,240,0.3);
       pointer-events: none;
     }
 
     .stamp:hover {
       transform: rotate(1deg) scale(1.02);
-      filter: drop-shadow(0 18px 24px rgba(0,0,0,0.3));
+      box-shadow: 
+        0 20px 30px -6px rgba(0,0,0,0.5),
+        inset 0 -1px 4px rgba(0,0,0,0.1),
+        inset 2px 2px 10px rgba(255,255,255,0.9);
     }
 
-    /* элементы в стиле почтовых марок (номинал, страна) */
+    /* дополнительные реалистичные элементы (пятна, потёртости) */
+    .stamp .wear {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 20%, rgba(140,46,46,0.05) 0%, transparent 30%),
+                  radial-gradient(circle at 20% 80%, rgba(42,75,92,0.04) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: multiply;
+    }
+
+    /* номинал, страна, год */
     .stamp-denomination {
       position: absolute;
       top: 12px;
@@ -241,11 +283,13 @@
       font-size: 0.9rem;
       font-weight: 700;
       color: var(--accent);
-      background: rgba(255,255,240,0.7);
+      background: rgba(245,235,215,0.7);
       padding: 2px 8px;
       border-radius: 30px;
       border: 1px solid var(--gold);
       z-index: 5;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      backdrop-filter: blur(2px);
     }
 
     .stamp-country {
@@ -259,6 +303,7 @@
       letter-spacing: 1px;
       opacity: 0.7;
       z-index: 5;
+      text-shadow: 0 1px 2px rgba(255,255,240,0.5);
     }
 
     .stamp-year {
@@ -277,21 +322,24 @@
       font-weight: 600;
       border: 2px solid var(--gold);
       z-index: 5;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    /* латинское название (как таксон на марках рыб) */
     .stamp-taxon {
       font-style: italic;
       font-size: 0.8rem;
       color: var(--ink);
       margin-bottom: 0.8rem;
       opacity: 0.7;
+      font-family: 'Inter', monospace;
+      border-bottom: 1px dotted var(--accent);
+      display: inline-block;
     }
 
-    /* плейсхолдер для будущих фото */
+    /* плейсхолдер фото с текстурой */
     .photo-placeholder {
-      background: #dad3c4;
-      background-image: linear-gradient(45deg, #c7bbaa 20%, #e2d8cb 80%);
+      background: #cfc6b8;
+      background-image: linear-gradient(145deg, #b8aa99 0%, #e0d4c4 80%);
       border-radius: 12px;
       padding: 1.2rem;
       display: flex;
@@ -299,25 +347,26 @@
       align-items: center;
       justify-content: center;
       color: #2c3e4e;
-      font-family: 'Inter', monospace;
       border: 2px dashed var(--accent);
       aspect-ratio: 1 / 0.9;
       margin: 0.5rem 0;
       text-align: center;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.1);
+      background-blend-mode: overlay;
     }
 
     .photo-placeholder i {
       font-size: 2.5rem;
       color: var(--accent);
       margin-bottom: 0.3rem;
+      filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.2));
     }
 
-    /* ========== СЕТКИ ========== */
+    /* сетки */
     .grid-2, .grid-3, .grid-4 {
       display: grid;
       gap: 2.5rem;
     }
-
     .grid-2 { grid-template-columns: repeat(2,1fr); }
     .grid-3 { grid-template-columns: repeat(3,1fr); }
     .grid-4 { grid-template-columns: repeat(4,1fr); }
@@ -329,7 +378,7 @@
       .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
     }
 
-    /* ========== О СЕБЕ (ДВЕ КОЛОНКИ) ========== */
+    /* о себе */
     .about-wrap {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -340,7 +389,6 @@
       .about-wrap { grid-template-columns: 1fr; }
     }
 
-    /* список с рыбками */
     .fish-list {
       list-style: none;
       margin-top: 1rem;
@@ -357,7 +405,7 @@
       text-align: center;
     }
 
-    /* ========== КОНТАКТНАЯ МАРКА ========== */
+    /* контакты */
     .contact-links {
       display: flex;
       flex-wrap: wrap;
@@ -369,19 +417,22 @@
       color: var(--deep);
       text-decoration: none;
       font-size: 1.3rem;
-      border: 1px solid transparent;
+      border: 1px solid rgba(140,46,46,0.3);
       padding: 0.5rem 1.2rem;
       border-radius: 50px;
-      background: rgba(140,46,46,0.08);
+      background: rgba(255,250,240,0.6);
       transition: 0.2s;
+      backdrop-filter: blur(2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     .contact-links a:hover {
       border-color: var(--accent);
       background: var(--accent);
       color: white;
+      box-shadow: 0 8px 15px rgba(140,46,46,0.3);
     }
 
-    /* ========== ФУТЕР ========== */
+    /* футер */
     footer {
       background: var(--deep);
       color: #ccc;
@@ -391,41 +442,84 @@
       align-items: center;
       flex-wrap: wrap;
       border-top: 3px dashed var(--accent);
+      box-shadow: inset 0 10px 20px rgba(0,0,0,0.3);
     }
 
-    /* ========== ДОПОЛНИТЕЛЬНЫЕ ШТАМПЫ ========== */
     .micro-text {
       font-size: 0.7rem;
       opacity: 0.5;
       text-transform: uppercase;
     }
-
-    /* адаптация */
-    @media (max-width: 600px) {
-      nav ul { gap: 15px; }
-      .section-title { font-size: 2rem; }
-      .jp-vertical { display: none; }
-    }
   </style>
 </head>
 <body>
-  <div class="parallax"></div>
+  <!-- контейнер для реалистичных гранатов -->
+  <div class="pomegranate-container">
+    <div class="pomegranate-left realistic-pomegranate">
+      <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pomGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#a53f3f" />
+            <stop offset="80%" stop-color="#701e1e" />
+            <stop offset="100%" stop-color="#4f1212" />
+          </linearGradient>
+          <radialGradient id="pomHighlight" cx="30%" cy="30%" r="50%">
+            <stop offset="0%" stop-color="#d66e6e" stop-opacity="0.8" />
+            <stop offset="100%" stop-color="#8c2e2e" stop-opacity="0" />
+          </radialGradient>
+          <filter id="pomShadow" x="-0.2" y="-0.2" width="1.5" height="1.5">
+            <feDropShadow dx="8" dy="8" stdDeviation="6" flood-opacity="0.3"/>
+          </filter>
+        </defs>
+        <!-- ветка -->
+        <path d="M140 80 C120 40, 70 30, 40 70" stroke="#5a462b" stroke-width="12" fill="none" stroke-linecap="round" filter="url(#pomShadow)"/>
+        <path d="M140 80 C120 40, 70 30, 40 70" stroke="#7b5f3a" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <!-- листья -->
+        <path d="M95 45 Q120 10 145 40" fill="#2d5e2d" stroke="#1c3c1c" stroke-width="2" filter="url(#pomShadow)"/>
+        <path d="M110 35 Q135 5 160 30" fill="#3f7a3f" stroke="#1c3c1c" stroke-width="2"/>
+        <!-- гранат -->
+        <circle cx="200" cy="250" r="110" fill="url(#pomGrad1)" filter="url(#pomShadow)"/>
+        <circle cx="200" cy="250" r="110" fill="url(#pomHighlight)" />
+        <!-- коронка -->
+        <path d="M165 150 Q190 130 215 150 Q200 120 165 150" fill="#5a2e2e" stroke="#3e1e1e" stroke-width="4"/>
+        <!-- блики -->
+        <ellipse cx="160" cy="210" rx="30" ry="15" fill="#ffb5b5" opacity="0.25" filter="url(#pomShadow)"/>
+        <ellipse cx="250" cy="290" rx="30" ry="15" fill="#ffb5b5" opacity="0.2"/>
+        <!-- трещинки/текстура -->
+        <path d="M220 280 Q235 295 255 285" stroke="#631b1b" stroke-width="2" opacity="0.5" fill="none"/>
+        <path d="M170 300 Q185 315 205 310" stroke="#631b1b" stroke-width="2" opacity="0.5" fill="none"/>
+      </svg>
+    </div>
+    <div class="pomegranate-right realistic-pomegranate">
+      <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pomGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#b34b4b" />
+            <stop offset="80%" stop-color="#7a2121" />
+            <stop offset="100%" stop-color="#521515" />
+          </linearGradient>
+          <radialGradient id="pomHighlight2" cx="70%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#e69090" stop-opacity="0.8" />
+            <stop offset="100%" stop-color="#8c2e2e" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <!-- ветка -->
+        <path d="M260 80 C280 40, 330 30, 360 70" stroke="#5a462b" stroke-width="12" fill="none" stroke-linecap="round" filter="url(#pomShadow)"/>
+        <path d="M260 80 C280 40, 330 30, 360 70" stroke="#7b5f3a" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <!-- листья -->
+        <path d="M305 45 Q330 10 355 40" fill="#2d5e2d" stroke="#1c3c1c" stroke-width="2"/>
+        <path d="M290 35 Q315 5 340 30" fill="#3f7a3f" stroke="#1c3c1c" stroke-width="2"/>
+        <!-- гранат -->
+        <circle cx="200" cy="250" r="110" fill="url(#pomGrad2)" filter="url(#pomShadow)"/>
+        <circle cx="200" cy="250" r="110" fill="url(#pomHighlight2)" />
+        <path d="M165 150 Q190 130 215 150 Q200 120 165 150" fill="#5a2e2e" stroke="#3e1e1e" stroke-width="4"/>
+        <ellipse cx="140" cy="220" rx="30" ry="15" fill="#ffb5b5" opacity="0.2"/>
+        <ellipse cx="240" cy="290" rx="30" ry="15" fill="#ffb5b5" opacity="0.3"/>
+      </svg>
+    </div>
+  </div>
 
-  <!-- Гранаты (из черновика) -->
-  <svg class="granate left" viewBox="0 0 300 600" preserveAspectRatio="xMidYMid meet">
-    <path d="M150 100 C120 200, 100 300, 150 400" stroke="#5a3a2e" stroke-width="6" fill="none"/>
-    <circle cx="150" cy="260" r="50" fill="#8c2e2e"/>
-    <path d="M120 230 Q150 200 180 230" fill="none" stroke="#fff" opacity=".4"/>
-    <ellipse class="leaf" cx="100" cy="200" rx="40" ry="18" fill="#4a6b3a"/>
-  </svg>
-  <svg class="granate right" viewBox="0 0 300 600" preserveAspectRatio="xMidYMid meet">
-    <path d="M150 100 C120 200, 100 300, 150 400" stroke="#5a3a2e" stroke-width="6" fill="none"/>
-    <circle cx="150" cy="260" r="50" fill="#8c2e2e"/>
-    <path d="M120 230 Q150 200 180 230" fill="none" stroke="#fff" opacity=".4"/>
-    <ellipse class="leaf" cx="200" cy="200" rx="40" ry="18" fill="#4a6b3a"/>
-  </svg>
-
-  <!-- Навигация -->
+  <!-- навигация -->
   <nav>
     <div class="logo"><i class="fas fa-fish"></i>  ES · ITMO</div>
     <ul>
@@ -437,37 +531,37 @@
     </ul>
   </nav>
 
-  <!-- Вертикальный японский текст (меняется при скролле) -->
+  <!-- вертикальный текст -->
   <div class="jp-vertical" id="jpVertical">創造</div>
 
-  <!-- Хедер с именем -->
+  <!-- хедер -->
   <header>
     <h1>Симина<br>Елизавета</h1>
     <div class="sub"><i class="fas fa-code"></i> 1 курс ITMO · программист · путешественник <i class="fas fa-plane"></i></div>
   </header>
 
-  <!-- Секция ОБО МНЕ -->
+  <!-- секция ОБО МНЕ -->
   <section id="about">
     <h2 class="section-title"><i class="fas fa-fish"></i> AMPHIPRION PERCULA</h2>
     <div class="about-wrap">
-      <!-- Текстовая марка (о себе) -->
-      <div class="stamp" style="background: #fffcf3;">
+      <div class="stamp">
         <div class="stamp-denomination">01 <i class="fa-regular fa-star"></i></div>
         <div class="stamp-country">ITMO · RUSSIA</div>
         <div class="stamp-year">2025</div>
+        <div class="wear"></div>
         <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">привет, я Лиза</h3>
-        <div class="stamp-taxon">Amphiprion percula (рыба‑клоун) — яркая, маленькая, вездесущая</div>
-        <p>Студентка 1‑го курса, учусь превращать строки в работающие сервисы. Обожаю карты, билеты, запах аэропортов и местный кофе. Верю, что программирование и путешествия — идеальный симбиоз. В свободное время коллекционирую марки… и впечатления.</p>
+        <div class="stamp-taxon">Amphiprion percula (рыба‑клоун)</div>
+        <p>Студентка 1‑го курса, учусь превращать строки в работающие сервисы. Обожаю карты, билеты, запах аэропортов и местный кофе. Верю, что программирование и путешествия — идеальный симбиоз.</p>
         <ul class="fish-list">
           <li><i class="fas fa-laptop-code"></i> Python, JS, SQL — базово, но с огоньком</li>
           <li><i class="fas fa-map-marked-alt"></i> 10+ стран, 30+ городов</li>
           <li><i class="fas fa-camera-retro"></i> всегда с собой плёнка</li>
         </ul>
       </div>
-      <!-- Фото-плейсхолдер (будущий портрет) -->
-      <div class="stamp" style="background: #f6ebd6; display: flex; flex-direction: column; align-items: center;">
+      <div class="stamp" style="display: flex; flex-direction: column; align-items: center;">
         <div class="stamp-denomination">polaroid</div>
         <div class="stamp-country">SELF · 2025</div>
+        <div class="wear"></div>
         <div class="photo-placeholder" style="width: 100%; aspect-ratio: 1/1.1;">
           <i class="fas fa-mountain-sun"></i>
           <span style="font-weight: 600;"><i class="fas fa-portrait"></i> фото здесь</span>
@@ -478,7 +572,7 @@
     </div>
   </section>
 
-  <!-- Секция НАВЫКИ (как марки с рыбами) -->
+  <!-- секция НАВЫКИ -->
   <section id="skills">
     <h2 class="section-title"><i class="fas fa-tools"></i> TRICHOGASTER · навыки</h2>
     <div class="grid-4">
@@ -488,6 +582,7 @@
         <div class="stamp-country">SINGAPORE</div>
         <div class="stamp-year">'24</div>
         <div class="stamp-taxon">Trichogaster</div>
+        <div class="wear"></div>
         <h3><i class="fab fa-python"></i> Python</h3>
         <p>Основы, боты, парсинг. Участвую в учебных проектах.</p>
       </div>
@@ -497,6 +592,7 @@
         <div class="stamp-country">SINGAPORE</div>
         <div class="stamp-year">'24</div>
         <div class="stamp-taxon">Trichopterus</div>
+        <div class="wear"></div>
         <h3><i class="fab fa-js"></i> JavaScript</h3>
         <p>DOM, fetch, маленькие игры. Хочу углубиться в React.</p>
       </div>
@@ -506,6 +602,7 @@
         <div class="stamp-country">ITMO</div>
         <div class="stamp-year">2025</div>
         <div class="stamp-taxon">Rasbora</div>
+        <div class="wear"></div>
         <h3><i class="fas fa-database"></i> SQL</h3>
         <p>Запросы, SQLite, базовое проектирование.</p>
       </div>
@@ -515,15 +612,17 @@
         <div class="stamp-country">RUSSIA</div>
         <div class="stamp-year">'23</div>
         <div class="stamp-taxon">Heteromorpha</div>
+        <div class="wear"></div>
         <h3><i class="fab fa-git-alt"></i> Git / GitHub</h3>
         <p>Версионный контроль, работа в команде.</p>
       </div>
-      <!-- навык 5 (ещё один) -->
+      <!-- навык 5 -->
       <div class="stamp skill">
         <div class="stamp-denomination">8C</div>
         <div class="stamp-country">JAPAN</div>
         <div class="stamp-year">2024</div>
         <div class="stamp-taxon">Amphiprion</div>
+        <div class="wear"></div>
         <h3><i class="fas fa-paint-brush"></i> Figma</h3>
         <p>Прототипирование интерфейсов.</p>
       </div>
@@ -533,6 +632,7 @@
         <div class="stamp-country">SINGAPORE</div>
         <div class="stamp-year">'25</div>
         <div class="stamp-taxon">Percula</div>
+        <div class="wear"></div>
         <h3><i class="fas fa-code"></i> HTML/CSS</h3>
         <p>Адаптивная вёрстка, анимации, сетки.</p>
       </div>
@@ -542,6 +642,7 @@
         <div class="stamp-country">KOREA</div>
         <div class="stamp-year">2024</div>
         <div class="stamp-taxon">Trichogaster</div>
+        <div class="wear"></div>
         <h3><i class="fas fa-camera"></i> фото/обработка</h3>
         <p>Съёмка на плёнку, Lightroom.</p>
       </div>
@@ -551,13 +652,14 @@
         <div class="stamp-country">ITMO</div>
         <div class="stamp-year">2025</div>
         <div class="stamp-taxon">Rasbora</div>
+        <div class="wear"></div>
         <h3><i class="fas fa-language"></i> English (B2)</h3>
         <p>Техническая литература, переписка.</p>
       </div>
     </div>
   </section>
 
-  <!-- Секция ПРОЕКТЫ -->
+  <!-- секция ПРОЕКТЫ -->
   <section id="projects">
     <h2 class="section-title"><i class="fas fa-flask"></i> · проекты · </h2>
     <div class="grid-3">
@@ -567,6 +669,7 @@
         <div class="stamp-country">GITHUB</div>
         <div class="stamp-year">2025</div>
         <div class="stamp-taxon">Amphiprion</div>
+        <div class="wear"></div>
         <h3><i class="fas fa-robot"></i> Travel‑бот</h3>
         <div class="photo-placeholder" style="height: 140px;">
           <i class="fas fa-bolt"></i> aiogram
@@ -579,6 +682,7 @@
         <div class="stamp-country">ITMO</div>
         <div class="stamp-year">2024</div>
         <div class="stamp-taxon">Trichopterus</div>
+        <div class="wear"></div>
         <h3><i class="fas fa-globe"></i> Сайт‑визитка</h3>
         <div class="photo-placeholder" style="height: 140px;">
           <i class="fas fa-stamp"></i> марочный стиль
@@ -591,6 +695,7 @@
         <div class="stamp-country">RASBORA</div>
         <div class="stamp-year">2025</div>
         <div class="stamp-taxon">Heteromorpha</div>
+        <div class="wear"></div>
         <h3><i class="fas fa-chart-line"></i> Анализ турпотоков</h3>
         <div class="photo-placeholder" style="height: 140px;">
           <i class="fas fa-table"></i> pandas + dash
@@ -600,7 +705,7 @@
     </div>
   </section>
 
-  <!-- Секция ПУТЕШЕСТВИЯ (Travel) -->
+  <!-- секция ПУТЕШЕСТВИЯ -->
   <section id="travel">
     <h2 class="section-title"><i class="fas fa-passport"></i> коллекция маршрутов</h2>
     <div class="grid-3">
@@ -610,6 +715,7 @@
         <div class="stamp-country">RUSSIA</div>
         <div class="stamp-year">2023</div>
         <div class="stamp-taxon">Байкал</div>
+        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-water"></i> лёд / ходули
         </div>
@@ -621,6 +727,7 @@
         <div class="stamp-country">RUSSIA</div>
         <div class="stamp-year">2024</div>
         <div class="stamp-taxon">Алтай</div>
+        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-tree"></i> горные реки
         </div>
@@ -632,17 +739,19 @@
         <div class="stamp-country">TURKEY</div>
         <div class="stamp-year">2024</div>
         <div class="stamp-taxon">Каппадокия</div>
+        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-hot-air-balloon"></i> рассвет
         </div>
         <p>Полёт на воздушном шаре, скальные города.</p>
       </div>
-      <!-- место 4 (добавим ещё) -->
+      <!-- место 4 -->
       <div class="stamp travel">
         <div class="stamp-denomination">✈︎</div>
         <div class="stamp-country">RUSSIA</div>
         <div class="stamp-year">2025</div>
         <div class="stamp-taxon">Камчатка</div>
+        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-volcano"></i> в планах
         </div>
@@ -654,6 +763,7 @@
         <div class="stamp-country">JAPAN</div>
         <div class="stamp-year">мечта</div>
         <div class="stamp-taxon">Хоккайдо</div>
+        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-snowflake"></i> фестиваль снега
         </div>
@@ -665,6 +775,7 @@
         <div class="stamp-country">NORWAY</div>
         <div class="stamp-year">2026?</div>
         <div class="stamp-taxon">Лофотены</div>
+        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-mountain"></i> фьорды
         </div>
@@ -673,7 +784,7 @@
     </div>
   </section>
 
-  <!-- Секция КОНТАКТЫ -->
+  <!-- секция КОНТАКТЫ -->
   <section id="contact" style="padding-bottom: 150px;">
     <h2 class="section-title"><i class="fas fa-paper-plane"></i> написать письмо</h2>
     <div style="display: flex; justify-content: center;">
@@ -681,6 +792,7 @@
         <div class="stamp-denomination"><i class="fa-regular fa-envelope"></i></div>
         <div class="stamp-country">SINGAPORE · ITMO</div>
         <div class="stamp-year">✉︎</div>
+        <div class="wear"></div>
         <h3 style="font-size: 2rem; margin-bottom: 1rem;">Елизавета Симина</h3>
         <div class="stamp-taxon">Amphiprion percula · всегда рада новым знакомствам</div>
         <div class="contact-links">
@@ -689,7 +801,6 @@
           <a href="#"><i class="fas fa-envelope"></i> simina@itmo.ru</a>
           <a href="#"><i class="fab fa-instagram"></i> @liza.travel</a>
         </div>
-        <!-- дополнительный штамп -->
         <div style="margin: 2rem 0 0.5rem; opacity: 0.5; display: flex; justify-content: center; gap: 20px;">
           <span class="micro-text">版市泉盤槽不</span>
           <span class="micro-text">CENTS · 1968</span>
@@ -699,13 +810,13 @@
     </div>
   </section>
 
-  <!-- ФУТЕР -->
+  <!-- футер -->
   <footer>
     <div><i class="fas fa-fish"></i>  Симина Елизавета · 1 курс ITMO</div>
     <div>© 2025 · марочное резюме · вдохновлено рыбами и midnight</div>
   </footer>
 
-  <!-- Скрипт для смены вертикального текста (из черновика) -->
+  <!-- скрипт смены вертикального текста -->
   <script>
     const jpTexts = ["創造","技術","表現","感性","魚","旅行","code","海"];
     let idx = 0;
