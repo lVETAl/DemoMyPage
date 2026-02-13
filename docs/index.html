@@ -2,117 +2,116 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<title>Simina Elizaveta | ITMO</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simina Elizaveta | ITMO Art Portfolio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
-/* ================= ROOT ================= */
-
-:root{
-  --paper:#f5efe6;
-  --ink:#1b1b1b;
-  --accent:#8b2c2c;
-  --deep:#15232a;
-}
-
 /* ================= BASE ================= */
 
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+:root{
+  --bg:#f2ebdf;
+  --paper:#fffaf2;
+  --text:#1b1b1b;
+  --accent:#8c2e2e;
+  --deep:#132029;
+}
+
+html{scroll-behavior:smooth;}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  font-family:Inter,sans-serif;
-  background:var(--paper);
-  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
   overflow-x:hidden;
 }
 
-/* ================= OLD PAPER TEXTURE ================= */
+/* ================= PAPER TEXTURE ================= */
 
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events:none;
-  z-index:-5;
+  z-index:-3;
+}
+
+/* ================= PARALLAX BACKGROUND ================= */
+
+.parallax{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(140,46,46,0.12), transparent 60%),
+    radial-gradient(circle at 80% 30%, rgba(140,46,46,0.08), transparent 60%);
+  z-index:-4;
 }
 
 /* ================= NAV ================= */
 
 nav{
   position:fixed;
+  top:0;
   width:100%;
-  padding:14px 8%;
+  padding:15px 10%;
   display:flex;
   justify-content:space-between;
-  background:rgba(245,239,230,.75);
+  background:rgba(255,250,242,0.8);
   backdrop-filter:blur(8px);
   z-index:1000;
 }
 
-nav ul{
-  display:flex;
-  gap:30px;
-  list-style:none;
-}
-
-nav a{
-  text-decoration:none;
-  color:var(--ink);
-}
+nav ul{display:flex;gap:25px;list-style:none;}
+nav a{text-decoration:none;color:var(--text);}
 
 /* ================= HERO ================= */
 
 header{
   height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   background:var(--deep);
   color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
   position:relative;
 }
 
 header h1{
   font-family:'Noto Serif JP',serif;
   font-size:56px;
-  letter-spacing:3px;
 }
 
-/* ================= VERTICAL JAPANESE ================= */
+/* ================= VERTICAL TEXT ================= */
 
-.jp{
+.jp-text{
   position:fixed;
   right:30px;
-  top:40%;
+  top:50%;
   writing-mode:vertical-rl;
   font-family:'Noto Serif JP',serif;
   letter-spacing:6px;
-  opacity:.45;
-  transition:.5s;
+  opacity:.6;
+  transform:translateY(-50%);
 }
 
 /* ================= SECTIONS ================= */
 
 section{
-  padding:140px 10%;
-  position:relative;
+  padding:120px 10%;
 }
 
 /* ================= STAMP ================= */
 
 .stamp{
-  background:#fffdf8;
+  background:var(--paper);
   padding:30px;
-  width:280px;
   position:relative;
-  filter:drop-shadow(0 12px 16px rgba(0,0,0,.12));
+  filter:drop-shadow(0 10px 20px rgba(0,0,0,.15));
   transition:.4s;
 }
 
@@ -120,62 +119,65 @@ section{
 .stamp::before{
   content:"";
   position:absolute;
-  inset:-12px;
+  inset:-10px;
   background:
-    radial-gradient(circle, var(--paper) 6px, transparent 7px);
+    radial-gradient(circle, var(--bg) 6px, transparent 7px);
   background-size:22px 22px;
+  z-index:-1;
+}
+
+/* inner border */
+.stamp::after{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border:1px dashed rgba(0,0,0,.2);
+}
+
+/* hover */
+.stamp:hover{
+  transform:rotate(-2deg) scale(1.04);
 }
 
 /* ITMO stamp */
-.stamp::after{
-  content:"ITMO";
+.itmo-stamp{
   position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:52px;
-  font-weight:700;
-  color:rgba(139,44,44,.25);
-  transform:rotate(-18deg);
-  pointer-events:none;
+  top:20px;
+  right:20px;
+  border:2px solid var(--accent);
+  padding:6px 12px;
+  color:var(--accent);
+  transform:rotate(-15deg);
+  font-weight:600;
 }
 
-/* tape */
-.stamp:hover{
-  transform:rotate(-2deg) scale(1.05);
-}
+/* ================= SVG GRANATE ================= */
 
-/* ================= SVG POMEGRANATE ================= */
-
-.decor{
+.granate{
   position:fixed;
-  top:80px;
-  width:220px;
-  opacity:.9;
-  z-index:-2;
+  top:100px;
+  width:280px;
+  opacity:.85;
+  z-index:-1;
+  animation:float 6s ease-in-out infinite;
 }
 
-.left{left:-40px}
-.right{right:-40px;transform:scaleX(-1)}
+.granate.right{right:-40px;}
+.granate.left{left:-40px;transform:scaleX(-1);}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(20px);}
+}
 
 .leaf{
-  animation:leaf 6s ease-in-out infinite alternate;
-  transform-origin:bottom;
+  transform-origin:center;
+  animation:leaf 3s ease-in-out infinite;
 }
 
 @keyframes leaf{
-  from{transform:rotate(-2deg)}
-  to{transform:rotate(3deg)}
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-  padding:40px;
-  text-align:center;
-  background:var(--deep);
-  color:white;
+  0%,100%{transform:rotate(0);}
+  50%{transform:rotate(3deg);}
 }
 
 </style>
@@ -183,59 +185,51 @@ footer{
 
 <body>
 
-<div class="jp" id="jp">創造</div>
+<div class="parallax"></div>
 
-<!-- POMEGRANATE SVG -->
-<svg class="decor left" viewBox="0 0 200 600">
-  <path d="M100 40 C80 120 120 200 100 300" stroke="#4b2e1f" stroke-width="4" fill="none"/>
-  <circle cx="100" cy="220" r="38" fill="#8b2c2c"/>
-  <path d="M100 182 l-10 -14 h20z" fill="#5c1d1d"/>
-  <ellipse class="leaf" cx="70" cy="140" rx="28" ry="14" fill="#3d6b3d"/>
-  <ellipse class="leaf" cx="130" cy="160" rx="26" ry="13" fill="#3d6b3d"/>
+<!-- GRANATE SVG -->
+<svg class="granate left" viewBox="0 0 300 600">
+  <path d="M150 100 C120 200, 100 300, 150 400" stroke="#5a3a2e" stroke-width="6" fill="none"/>
+  <circle cx="150" cy="260" r="50" fill="#8c2e2e"/>
+  <path d="M120 230 Q150 200 180 230" fill="none" stroke="#fff" opacity=".4"/>
+  <ellipse class="leaf" cx="100" cy="200" rx="40" ry="18" fill="#4a6b3a"/>
 </svg>
-<svg class="decor right" viewBox="0 0 200 600">
-  <path d="M100 40 C80 120 120 200 100 300" stroke="#4b2e1f" stroke-width="4" fill="none"/>
-  <circle cx="100" cy="260" r="36" fill="#8b2c2c"/>
-  <path d="M100 222 l-10 -14 h20z" fill="#5c1d1d"/>
-  <ellipse class="leaf" cx="70" cy="160" rx="26" ry="13" fill="#3d6b3d"/>
-  <ellipse class="leaf" cx="130" cy="180" rx="28" ry="14" fill="#3d6b3d"/>
+<svg class="granate right" viewBox="0 0 300 600">
+  <path d="M150 100 C120 200, 100 300, 150 400" stroke="#5a3a2e" stroke-width="6" fill="none"/>
+  <circle cx="150" cy="260" r="50" fill="#8c2e2e"/>
+  <path d="M120 230 Q150 200 180 230" fill="none" stroke="#fff" opacity=".4"/>
+  <ellipse class="leaf" cx="200" cy="200" rx="40" ry="18" fill="#4a6b3a"/>
 </svg>
 
 <nav>
   <strong>ES | ITMO</strong>
   <ul>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Portfolio</a></li>
+    <li><a href="#portfolio">Портфолио</a></li>
   </ul>
 </nav>
 
 <header>
-  <div>
-    <h1>SIMINA ELIZAVETA</h1>
-    <p>ITMO Student · Frontend · Visual Code</p>
-  </div>
+  <h1>Симина Елизавета</h1>
 </header>
 
-<section>
+<div class="jp-text" id="jpText">創造</div>
+
+<section id="portfolio">
   <div class="stamp">
-    <h3>Book Catalog</h3>
-    <p>Web project</p>
+    <div class="itmo-stamp">ITMO</div>
+    <h2>Каталог книг</h2>
+    <p>Frontend проект</p>
   </div>
 </section>
 
-<footer>© 2026 Simina Elizaveta · ITMO</footer>
-
 <script>
 
-/* vertical japanese change */
-
-const jp = document.getElementById("jp");
-const words = ["創造","技術","表現","構造"];
+/* vertical text change */
+const texts=["創造","技術","表現","感性"];
 let i=0;
-
 window.addEventListener("scroll",()=>{
-  if(window.scrollY % 300 < 10){
-    jp.textContent = words[i++ % words.length];
+  if(window.scrollY%200<5){
+    document.getElementById("jpText").innerText=texts[i++%texts.length];
   }
 });
 
