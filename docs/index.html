@@ -74,7 +74,6 @@
       z-index: -3;
     }
 
-    /* общие стили для гранатов */
     .pom {
       position: absolute;
       width: 300px;
@@ -83,7 +82,6 @@
       opacity: 0.9;
     }
 
-    /* расположение каждого граната */
     .pom1 { left: -50px; top: 20px; width: 350px; transform: rotate(-12deg); }
     .pom2 { right: -60px; top: 150px; width: 380px; transform: rotate(8deg) scaleX(-1); }
     .pom3 { left: 5%; bottom: 10%; width: 280px; transform: rotate(20deg); }
@@ -223,58 +221,26 @@
       background-image: 
         repeating-linear-gradient(45deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 3px, transparent 3px, transparent 10px),
         radial-gradient(circle at 20% 30%, rgba(140,46,46,0.02) 0%, transparent 30%);
-      z-index: 1; /* марка выше зубцов */
+      z-index: 1;
     }
 
-    /* псевдоэлемент для зубцов — теперь он под маркой (z-index: -1) и имеет полукруглые выемки */
+    /* псевдоэлемент для зубцов — теперь используем border-image с полукругами */
     .stamp::before {
       content: "";
       position: absolute;
-      inset: -12px; /* немного шире марки */
-      background: var(--paper); /* тот же цвет, что и марка */
+      inset: -12px; /* пространство для зубцов */
+      border-width: 12px; /* толщина зубчатого края */
+      border-style: solid;
+      border-color: transparent; /* сам border не виден, важно только для border-image */
+      border-image-source: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="%23fffaf2"/></svg>');
+      border-image-slice: 10 fill;
+      border-image-repeat: repeat; /* повторяем круги по краям */
+      border-image-width: 12px; /* ширина области border-image */
+      background: transparent; /* убираем фон, чтобы не перекрывать */
+      pointer-events: none;
       z-index: -1; /* всегда под маркой */
-      border-radius: inherit;
-      pointer-events: none; /* чтобы не мешать кликам */
-      
-      /* маска, создающая полукруглые зубцы по краю */
-      mask-image: 
-        /* Верхний край: полукруги, направленные вверх */
-        repeating-linear-gradient( to right, 
-          transparent 0px, 
-          transparent 10px, 
-          black 10px, 
-          black 20px ),
-        /* Нижний край */
-        repeating-linear-gradient( to right, 
-          transparent 0px, 
-          transparent 10px, 
-          black 10px, 
-          black 20px ),
-        /* Левый край */
-        repeating-linear-gradient( to bottom, 
-          transparent 0px, 
-          transparent 10px, 
-          black 10px, 
-          black 20px ),
-        /* Правый край */
-        repeating-linear-gradient( to bottom, 
-          transparent 0px, 
-          transparent 10px, 
-          black 10px, 
-          black 20px );
-      
-      mask-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-      mask-position: top, bottom, left, right;
-      mask-size: 20px 20px, 20px 20px, 20px 20px, 20px 20px;
-      
-      /* Комбинируем маски (логическое ИЛИ) — по умолчанию сумма, нам нужно, чтобы прозрачные участки были в местах зубцов */
-      mask-composite: exclude; /* исключаем перекрытия, чтобы получить четкие зубцы */
-      
-      /* Дополнительная тень для объема */
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    /* При наведении зубцы не перекрывают марку, так как они всегда ниже */
     .stamp:hover {
       transform: rotate(1deg) scale(1.02);
       box-shadow: 
@@ -295,7 +261,7 @@
       padding: 2px 8px;
       border-radius: 30px;
       border: 1px solid var(--gold);
-      z-index: 2; /* выше маски */
+      z-index: 2;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       backdrop-filter: blur(2px);
     }
@@ -461,9 +427,8 @@
   </style>
 </head>
 <body>
-  <!-- контейнер для множества гранатов -->
+  <!-- контейнер для множества гранатов (без изменений) -->
   <div class="pomegranate-container">
-    <!-- гранат 1 (слева вверху) -->
     <div class="pom pom1 realistic-pomegranate">
       <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -482,7 +447,6 @@
         <path d="M75 20 Q95 -5 120 25" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
         <path d="M95 10 Q115 -10 140 20" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
         <circle cx="180" cy="240" r="110" fill="url(#pomGrad1)" filter="url(#pomShadow1)"/>
-        <circle cx="180" cy="240" r="110" fill="url(#pomGrad1)" filter="url(#pomShadow1)"/>
         <ellipse cx="140" cy="200" rx="30" ry="18" fill="#ffb5b5" opacity="0.3"/>
         <ellipse cx="230" cy="280" rx="35" ry="20" fill="#ffb5b5" opacity="0.2"/>
         <path d="M200 270 Q220 285 245 275" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
@@ -490,7 +454,6 @@
         <path d="M140 200 Q155 215 180 205" stroke="#631b1b" stroke-width="2" opacity="0.4" fill="none"/>
       </svg>
     </div>
-    <!-- гранат 2 (справа вверху) -->
     <div class="pom pom2 realistic-pomegranate">
       <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -510,7 +473,6 @@
         <path d="M240 270 Q260 285 285 275" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
       </svg>
     </div>
-    <!-- гранат 3 (слева внизу) -->
     <div class="pom pom3 realistic-pomegranate">
       <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -527,7 +489,6 @@
         <ellipse cx="120" cy="270" rx="25" ry="15" fill="#ffb5b5" opacity="0.3"/>
       </svg>
     </div>
-    <!-- гранат 4 (справа, центр) -->
     <div class="pom pom4 realistic-pomegranate">
       <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -544,7 +505,6 @@
         <ellipse cx="230" cy="270" rx="25" ry="15" fill="#ffb5b5" opacity="0.3"/>
       </svg>
     </div>
-    <!-- гранат 5 (ещё один слева) -->
     <div class="pom pom5 realistic-pomegranate">
       <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
         <defs>
