@@ -3,220 +3,275 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Симина Елизавета | Portfolio</title>
+<title>Симина Елизавета | ITMO Portfolio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
-/* ================== THEME VARIABLES ================== */
+/* ================= THEME ================= */
 
-:root {
-    --bg: #f6f3ed;
-    --card-bg: #ffffff;
-    --text: #1a1a1a;
-    --accent: #b33a3a;
-    --deep: #1e2f3a;
-    --soft: #e4dfd6;
+:root{
+  --bg:#f4efe7;
+  --card:#ffffff;
+  --text:#1b1b1b;
+  --accent:#9e2f2f;
+  --deep:#16242c;
+  --soft:#e2d8c9;
 }
 
-body.dark {
-    --bg: #111827;
-    --card-bg: #1f2937;
-    --text: #f3f4f6;
-    --accent: #d97777;
-    --deep: #0f172a;
-    --soft: #374151;
+body.dark{
+  --bg:#0f1720;
+  --card:#1c2530;
+  --text:#f1f1f1;
+  --accent:#d96b6b;
+  --deep:#0a1118;
+  --soft:#2a3642;
 }
 
-/* ================== BASE ================== */
+html{scroll-behavior:smooth;}
+*{margin:0;padding:0;box-sizing:border-box;}
 
-html { scroll-behavior: smooth; }
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:.3s;
+  overflow-x:hidden;
 }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    transition: 0.3s ease;
+/* ========= JAPANESE DECOR LINES ========= */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 140px,
+      rgba(158,47,47,0.05) 141px
+    );
+  pointer-events:none;
+  z-index:-2;
 }
 
-/* subtle japanese background pattern */
+/* subtle botanical radial accent */
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image:
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 120px,
-            rgba(179,58,58,0.03) 121px
-        );
-    pointer-events: none;
-    z-index: -1;
+body::after{
+  content:"";
+  position:fixed;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle, rgba(158,47,47,0.08), transparent 70%);
+  top:-200px;
+  right:-200px;
+  z-index:-3;
 }
 
-/* ================== NAV ================== */
+/* ============== NAV ============== */
 
-nav {
-    position: fixed;
-    width: 100%;
-    background: rgba(255,255,255,0.6);
-    backdrop-filter: blur(8px);
-    padding: 15px 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    border-bottom: 1px solid var(--soft);
+nav{
+  position:fixed;
+  width:100%;
+  background:rgba(255,255,255,0.6);
+  backdrop-filter:blur(8px);
+  padding:15px 10%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--soft);
+  z-index:1000;
 }
 
-body.dark nav {
-    background: rgba(17,24,39,0.7);
+body.dark nav{
+  background:rgba(10,17,24,0.7);
 }
 
-nav ul {
-    display: flex;
-    gap: 25px;
-    list-style: none;
+nav ul{
+  display:flex;
+  gap:25px;
+  list-style:none;
 }
 
-nav a {
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 500;
+nav a{
+  text-decoration:none;
+  color:var(--text);
+  font-weight:500;
 }
 
-.theme-toggle {
-    cursor: pointer;
-    padding: 6px 12px;
-    border: 1px solid var(--accent);
-    border-radius: 20px;
-    font-size: 14px;
+.theme-toggle{
+  cursor:pointer;
+  border:1px solid var(--accent);
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:14px;
 }
 
-/* ================== HERO ================== */
+/* ============== HERO ============== */
 
-header {
-    height: 100vh;
-    background: var(--deep);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    position: relative;
+header{
+  height:100vh;
+  background:var(--deep);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  position:relative;
 }
 
-header::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    width: 60%;
-    height: 1px;
-    background: var(--accent);
+header h1{
+  font-family:'Noto Serif JP',serif;
+  font-size:52px;
+  margin-bottom:15px;
 }
 
-header h1 {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 48px;
-    margin-bottom: 20px;
+header p{
+  opacity:.9;
+  letter-spacing:1px;
 }
 
-/* ================== SECTIONS ================== */
+/* decorative horizontal brush line */
 
-section {
-    padding: 100px 10%;
+header::after{
+  content:"";
+  position:absolute;
+  bottom:60px;
+  width:200px;
+  height:2px;
+  background:var(--accent);
 }
 
-.section-title {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 30px;
-    margin-bottom: 50px;
-    border-left: 4px solid var(--accent);
-    padding-left: 15px;
+/* ============== SECTIONS ============== */
+
+section{
+  padding:100px 10%;
+  position:relative;
 }
 
-/* ================== CARDS ================== */
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+.section-title{
+  font-family:'Noto Serif JP',serif;
+  font-size:30px;
+  margin-bottom:50px;
+  border-left:4px solid var(--accent);
+  padding-left:15px;
 }
 
-.card {
-    background: var(--card-bg);
-    padding: 30px;
-    border-radius: 14px;
-    border: 1px solid var(--soft);
-    transition: 0.3s;
+/* decorative vertical japanese text-style line */
+
+.section-title::after{
+  content:"";
+  display:block;
+  width:60px;
+  height:1px;
+  background:var(--accent);
+  margin-top:10px;
 }
 
-.card:hover {
-    transform: translateY(-6px);
-    border-color: var(--accent);
+/* ============== GRID ============== */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
 }
 
-.project-img {
-    height: 180px;
-    background: var(--soft);
-    border-radius: 10px;
-    margin-bottom: 15px;
+/* ============== CARD ============== */
+
+.card{
+  background:var(--card);
+  padding:30px;
+  border-radius:14px;
+  border:1px solid var(--soft);
+  transition:.3s;
+  position:relative;
 }
 
-/* ================== BUTTON ================== */
-
-.btn {
-    display: inline-block;
-    padding: 12px 24px;
-    border: 1px solid var(--accent);
-    border-radius: 25px;
-    text-decoration: none;
-    color: var(--accent);
-    margin-top: 20px;
-    transition: 0.3s;
+.card:hover{
+  transform:translateY(-6px);
+  border-color:var(--accent);
 }
 
-.btn:hover {
-    background: var(--accent);
-    color: white;
+/* ============== STAMP PHOTO BLOCK ============== */
+
+.stamp{
+  width:100%;
+  height:200px;
+  background:var(--soft);
+  margin-bottom:15px;
+  position:relative;
+  clip-path:polygon(
+    5% 0%, 95% 0%, 100% 5%, 100% 95%,
+    95% 100%, 5% 100%, 0% 95%, 0% 5%
+  );
+  border:2px dashed var(--accent);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  letter-spacing:2px;
+  text-transform:uppercase;
 }
 
-/* ================== FOOTER ================== */
+/* decorative stamp perforation dots */
 
-footer {
-    text-align: center;
-    padding: 40px;
-    background: var(--deep);
-    color: white;
+.stamp::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle, var(--accent) 1px, transparent 1px);
+  background-size:14px 14px;
+  opacity:.15;
+  clip-path:inherit;
 }
 
-/* ================== ANIMATION ================== */
-
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: 0.8s ease;
+/* ============== BUTTON ============== */
+.btn{
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 24px;
+  border:1px solid var(--accent);
+  border-radius:30px;
+  text-decoration:none;
+  color:var(--accent);
+  transition:.3s;
 }
 
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+.btn:hover{
+  background:var(--accent);
+  color:white;
 }
 
-/* ================== RESPONSIVE ================== */
-@media(max-width: 768px){
-    header h1 { font-size: 32px; }
-    nav ul { gap: 15px; font-size: 14px; }
+/* ============== FOOTER ============== */
+
+footer{
+  text-align:center;
+  padding:40px;
+  background:var(--deep);
+  color:white;
+}
+
+/* ============== FADE ============== */
+
+.fade{
+  opacity:0;
+  transform:translateY(30px);
+  transition:.8s ease;
+}
+
+.fade.show{
+  opacity:1;
+  transform:none;
+}
+
+/* ============== RESPONSIVE ============== */
+
+@media(max-width:768px){
+  header h1{font-size:34px;}
 }
 
 </style>
@@ -225,94 +280,94 @@ footer {
 <body>
 
 <nav>
-    <strong>ES</strong>
-    <ul>
-        <li><a href="#about">Обо мне</a></li>
-        <li><a href="#portfolio">Портфолио</a></li>
-        <li><a href="#contacts">Контакты</a></li>
-    </ul>
-    <div class="theme-toggle" onclick="toggleTheme()">🌗 Тема</div>
+  <strong>ES | ITMO</strong>
+  <ul>
+    <li><a href="#about">Обо мне</a></li>
+    <li><a href="#portfolio">Портфолио</a></li>
+    <li><a href="#contacts">Контакты</a></li>
+  </ul>
+  <div class="theme-toggle" onclick="toggleTheme()">🌗 Тема</div>
 </nav>
 
 <header>
-    <div>
-        <h1>Симина Елизавета</h1>
-        <p>Frontend Developer | Студентка программирования | Путешествия & Минимализм</p>
-        <a href="resume.pdf" download class="btn">Скачать PDF-резюме</a>
-    </div>
+  <div>
+    <h1>Симина Елизавета</h1>
+    <p>Студентка ИТМО | Frontend Developer | Путешествия</p>
+    <a href="resume.pdf" download class="btn">Скачать PDF-резюме</a>
+  </div>
 </header>
 
 <section id="about">
-    <h2 class="section-title fade-in">Обо мне</h2>
-    <p class="fade-in">
-        Студентка 1 курса по направлению «Программирование».
-        Развиваюсь в frontend-разработке, изучаю архитектуру интерфейсов и современные технологии.
-        Вдохновляюсь путешествиями и эстетикой минимализма.
-    </p>
+  <h2 class="section-title fade">Обо мне</h2>
+  <p class="fade">
+    Студентка 1 курса ИТМО по направлению «Программирование».
+    Развиваюсь в frontend-разработке, изучаю архитектуру интерфейсов,
+    современные технологии и визуальные решения.
+  </p>
 </section>
 
 <section id="portfolio">
-    <h2 class="section-title fade-in">Портфолио</h2>
-    <div class="grid">
-        <div class="card fade-in">
-            <div class="project-img"></div>
-            <h3>Каталог книг</h3>
-            <p>Веб-приложение для управления библиотекой.</p>
-        </div>
-        <div class="card fade-in">
-            <div class="project-img"></div>
-            <h3>Java проект</h3>
-            <p>ООП-приложение с логикой обработки данных.</p>
-        </div>
+  <h2 class="section-title fade">Портфолио</h2>
+  <div class="grid">
+    <div class="card fade">
+      <div class="stamp">Место для фото</div>
+      <h3>Каталог книг</h3>
+      <p>Веб-приложение для управления библиотекой.</p>
     </div>
+
+    <div class="card fade">
+      <div class="stamp">Место для фото</div>
+      <h3>Java проект</h3>
+      <p>ООП-приложение с обработкой данных.</p>
+    </div>
+  </div>
 </section>
 
 <section id="contacts">
-    <h2 class="section-title fade-in">Контакты</h2>
-    <div class="grid">
-        <div class="card fade-in">
-            <p>Email: example@email.com</p>
-        </div>
-        <div class="card fade-in">
-            <p>GitHub: github.com/username</p>
-        </div>
+  <h2 class="section-title fade">Контакты</h2>
+  <div class="grid">
+    <div class="card fade">
+      Email: example@email.com
     </div>
+    <div class="card fade">
+      GitHub: github.com/username
+    </div>
+  </div>
 </section>
 
 <footer>
-    © 2026 Симина Елизавета
+  © 2026 Симина Елизавета | ITMO
 </footer>
 
 <script>
 
-/* ====== Theme Toggle ====== */
+/* Theme */
 
-function toggleTheme() {
-    document.body.classList.toggle("dark");
-    localStorage.setItem("theme",
-        document.body.classList.contains("dark") ? "dark" : "light"
-    );
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("theme",
+    document.body.classList.contains("dark")?"dark":"light");
 }
 
-window.onload = function() {
-    if(localStorage.getItem("theme") === "dark") {
-        document.body.classList.add("dark");
-    }
+window.onload=function(){
+  if(localStorage.getItem("theme")==="dark"){
+    document.body.classList.add("dark");
+  }
 };
 
-/* ====== Fade-in Animation ====== */
+/* Fade animation */
 
-const faders = document.querySelectorAll('.fade-in');
+const faders=document.querySelectorAll(".fade");
 
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting){
-            entry.target.classList.add('visible');
-        }
-    });
-}, { threshold: 0.2 });
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+  });
+},{threshold:.2});
 
-faders.forEach(el => observer.observe(el));
+faders.forEach(el=>observer.observe(el));
 
 </script>
 
