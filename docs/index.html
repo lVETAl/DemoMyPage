@@ -63,7 +63,7 @@
       z-index: -1;
     }
 
-    /* ========== РЕАЛИСТИЧНЫЕ ГРАНАТЫ ========== */
+    /* ========== ДЕТАЛИЗИРОВАННЫЕ ГРАНАТЫ ========== */
     .pomegranate-container {
       position: fixed;
       top: 0;
@@ -76,29 +76,30 @@
 
     .pomegranate-left, .pomegranate-right {
       position: absolute;
-      width: 400px;
+      width: 460px;
       height: auto;
-      filter: drop-shadow(0 15px 20px rgba(0,0,0,0.2));
+      filter: drop-shadow(0 20px 25px rgba(0,0,0,0.3));
       opacity: 0.9;
     }
 
     .pomegranate-left {
-      left: -80px;
-      top: 50px;
-      transform: rotate(-8deg);
+      left: -100px;
+      top: 30px;
+      transform: rotate(-10deg);
     }
 
     .pomegranate-right {
-      right: -80px;
+      right: -100px;
       top: 200px;
       transform: scaleX(-1) rotate(5deg);
     }
 
-    /* фотореалистичный гранат (svg с деталями) */
+    /* фотореалистичный гранат с множеством деталей */
     .realistic-pomegranate svg {
       width: 100%;
       height: auto;
       display: block;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
     }
 
     /* ========== НАВИГАЦИЯ ========== */
@@ -210,7 +211,7 @@
       text-shadow: 2px 2px 0 rgba(255,255,240,0.8);
     }
 
-    /* ========== МАРКИ С РЕАЛИСТИЧНОЙ ФАКТУРОЙ ========== */
+    /* ========== МАРКИ С РЕАЛИСТИЧНЫМИ ЗУБЦАМИ ========== */
     .stamp {
       background: var(--paper);
       padding: 2rem;
@@ -224,36 +225,36 @@
         0 15px 25px -8px rgba(0,0,0,0.4),
         inset 0 -2px 5px rgba(0,0,0,0.05),
         inset 2px 2px 8px rgba(255,255,255,0.8);
-      border-radius: 2px 15px 15px 2px; /* лёгкая асимметрия как у старой марки */
+      border-radius: 2px 15px 15px 2px; /* лёгкая асимметрия */
       background-image: 
         repeating-linear-gradient(45deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 3px, transparent 3px, transparent 10px),
         radial-gradient(circle at 20% 30%, rgba(140,46,46,0.02) 0%, transparent 30%);
     }
 
-    /* перфорация (зубцы) — более реалистичные дырочки с тенью */
+    /* зубчатый край (перфорация) — резные края как у настоящих марок */
     .stamp::before {
       content: "";
       position: absolute;
-      inset: -14px;
-      background: radial-gradient(circle at 30% 40%, rgba(0,0,0,0.25) 2px, transparent 3px);
-      background-size: 24px 24px;
-      z-index: -1;
-      opacity: 0.5;
-      mask-image: radial-gradient(circle at 30% 40%, black 3px, transparent 3px);
+      inset: -12px; /* немного выступает за границы марки */
+      background: var(--bg); /* цвет фона страницы */
+      mask-image: radial-gradient(circle at 12px 12px, transparent 6px, black 7px);
       mask-size: 24px 24px;
-      -webkit-mask-image: radial-gradient(circle at 30% 40%, black 3px, transparent 3px);
+      mask-repeat: repeat;
+      -webkit-mask-image: radial-gradient(circle at 12px 12px, transparent 6px, black 7px);
       -webkit-mask-size: 24px 24px;
+      -webkit-mask-repeat: repeat;
+      z-index: -1;
+      border-radius: inherit; /* чтобы повторяло форму */
     }
 
-    /* внутренняя рамка с эффектом тиснения */
+    /* дополнительный слой для лёгкой тени под зубцами */
     .stamp::after {
       content: "";
       position: absolute;
-      inset: 10px;
-      border: 1px solid rgba(0,0,0,0.15);
-      border-radius: 1px;
-      box-shadow: inset 0 0 5px rgba(255,255,200,0.3), 0 0 0 1px rgba(255,255,240,0.3);
-      pointer-events: none;
+      inset: -12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: -2;
+      border-radius: inherit;
     }
 
     .stamp:hover {
@@ -262,17 +263,6 @@
         0 20px 30px -6px rgba(0,0,0,0.5),
         inset 0 -1px 4px rgba(0,0,0,0.1),
         inset 2px 2px 10px rgba(255,255,255,0.9);
-    }
-
-    /* дополнительные реалистичные элементы (пятна, потёртости) */
-    .stamp .wear {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 70% 20%, rgba(140,46,46,0.05) 0%, transparent 30%),
-                  radial-gradient(circle at 20% 80%, rgba(42,75,92,0.04) 0%, transparent 40%);
-      pointer-events: none;
-      z-index: 2;
-      mix-blend-mode: multiply;
     }
 
     /* номинал, страна, год */
@@ -453,68 +443,84 @@
   </style>
 </head>
 <body>
-  <!-- контейнер для реалистичных гранатов -->
+  <!-- контейнер для детализированных гранатов -->
   <div class="pomegranate-container">
     <div class="pomegranate-left realistic-pomegranate">
-      <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 500 700" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="pomGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#a53f3f" />
-            <stop offset="80%" stop-color="#701e1e" />
-            <stop offset="100%" stop-color="#4f1212" />
+          <linearGradient id="pomSkinLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#b34b4b" />
+            <stop offset="60%" stop-color="#8c2e2e" />
+            <stop offset="100%" stop-color="#5a1e1e" />
           </linearGradient>
-          <radialGradient id="pomHighlight" cx="30%" cy="30%" r="50%">
-            <stop offset="0%" stop-color="#d66e6e" stop-opacity="0.8" />
+          <radialGradient id="pomHighlightLeft" cx="30%" cy="35%" r="50%">
+            <stop offset="0%" stop-color="#e69090" stop-opacity="0.7" />
             <stop offset="100%" stop-color="#8c2e2e" stop-opacity="0" />
           </radialGradient>
           <filter id="pomShadow" x="-0.2" y="-0.2" width="1.5" height="1.5">
-            <feDropShadow dx="8" dy="8" stdDeviation="6" flood-opacity="0.3"/>
+            <feDropShadow dx="10" dy="12" stdDeviation="6" flood-opacity="0.25"/>
           </filter>
         </defs>
-        <!-- ветка -->
-        <path d="M140 80 C120 40, 70 30, 40 70" stroke="#5a462b" stroke-width="12" fill="none" stroke-linecap="round" filter="url(#pomShadow)"/>
-        <path d="M140 80 C120 40, 70 30, 40 70" stroke="#7b5f3a" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <!-- листья -->
-        <path d="M95 45 Q120 10 145 40" fill="#2d5e2d" stroke="#1c3c1c" stroke-width="2" filter="url(#pomShadow)"/>
-        <path d="M110 35 Q135 5 160 30" fill="#3f7a3f" stroke="#1c3c1c" stroke-width="2"/>
-        <!-- гранат -->
-        <circle cx="200" cy="250" r="110" fill="url(#pomGrad1)" filter="url(#pomShadow)"/>
-        <circle cx="200" cy="250" r="110" fill="url(#pomHighlight)" />
+        <!-- основные ветки -->
+        <path d="M150 60 C110 30, 60 40, 30 90" stroke="#6a4e2e" stroke-width="16" fill="none" stroke-linecap="round" filter="url(#pomShadow)"/>
+        <path d="M150 60 C110 30, 60 40, 30 90" stroke="#8b6b40" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <!-- множество листьев -->
+        <g filter="url(#pomShadow)">
+          <path d="M70 40 Q95 5 120 35" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+          <path d="M95 20 Q115 -5 140 25" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
+          <path d="M115 10 Q135 -10 160 20" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+          <path d="M50 65 Q75 30 100 60" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
+          <path d="M30 100 Q55 70 80 95" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+        </g>
+        <!-- гранат (основной плод) -->
+        <circle cx="220" cy="300" r="130" fill="url(#pomSkinLeft)" filter="url(#pomShadow)"/>
+        <circle cx="220" cy="300" r="130" fill="url(#pomHighlightLeft)"/>
         <!-- коронка -->
-        <path d="M165 150 Q190 130 215 150 Q200 120 165 150" fill="#5a2e2e" stroke="#3e1e1e" stroke-width="4"/>
-        <!-- блики -->
-        <ellipse cx="160" cy="210" rx="30" ry="15" fill="#ffb5b5" opacity="0.25" filter="url(#pomShadow)"/>
-        <ellipse cx="250" cy="290" rx="30" ry="15" fill="#ffb5b5" opacity="0.2"/>
-        <!-- трещинки/текстура -->
-        <path d="M220 280 Q235 295 255 285" stroke="#631b1b" stroke-width="2" opacity="0.5" fill="none"/>
-        <path d="M170 300 Q185 315 205 310" stroke="#631b1b" stroke-width="2" opacity="0.5" fill="none"/>
+        <path d="M180 190 Q210 160 240 190 Q225 170 180 190" fill="#5a2e2e" stroke="#3e1e1e" stroke-width="4"/>
+        <!-- блики и прожилки -->
+        <ellipse cx="170" cy="250" rx="35" ry="20" fill="#ffb5b5" opacity="0.25"/>
+        <ellipse cx="280" cy="340" rx="30" ry="15" fill="#ffb5b5" opacity="0.2"/>
+        <path d="M240 330 Q260 345 285 335" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
+        <path d="M190 370 Q210 385 235 375" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
+        <path d="M160 300 Q175 315 200 305" stroke="#631b1b" stroke-width="2" opacity="0.4" fill="none"/>
+        <!-- трещинки на кожуре -->
+        <path d="M210 270 Q225 265 240 280" stroke="#4f1a1a" stroke-width="2.5" fill="none" opacity="0.4"/>
+        <path d="M270 310 Q285 320 300 310" stroke="#4f1a1a" stroke-width="2.5" fill="none" opacity="0.4"/>
       </svg>
     </div>
     <div class="pomegranate-right realistic-pomegranate">
-      <svg viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 500 700" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="pomGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="pomSkinRight" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#b34b4b" />
-            <stop offset="80%" stop-color="#7a2121" />
-            <stop offset="100%" stop-color="#521515" />
+            <stop offset="60%" stop-color="#8c2e2e" />
+            <stop offset="100%" stop-color="#5a1e1e" />
           </linearGradient>
-          <radialGradient id="pomHighlight2" cx="70%" cy="40%" r="50%">
-            <stop offset="0%" stop-color="#e69090" stop-opacity="0.8" />
+          <radialGradient id="pomHighlightRight" cx="70%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#e69090" stop-opacity="0.7" />
             <stop offset="100%" stop-color="#8c2e2e" stop-opacity="0" />
           </radialGradient>
         </defs>
-        <!-- ветка -->
-        <path d="M260 80 C280 40, 330 30, 360 70" stroke="#5a462b" stroke-width="12" fill="none" stroke-linecap="round" filter="url(#pomShadow)"/>
-        <path d="M260 80 C280 40, 330 30, 360 70" stroke="#7b5f3a" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <!-- ветки -->
+        <path d="M350 60 C390 30, 440 40, 470 90" stroke="#6a4e2e" stroke-width="16" fill="none" stroke-linecap="round" filter="url(#pomShadow)"/>
+        <path d="M350 60 C390 30, 440 40, 470 90" stroke="#8b6b40" stroke-width="8" fill="none" stroke-linecap="round"/>
         <!-- листья -->
-        <path d="M305 45 Q330 10 355 40" fill="#2d5e2d" stroke="#1c3c1c" stroke-width="2"/>
-        <path d="M290 35 Q315 5 340 30" fill="#3f7a3f" stroke="#1c3c1c" stroke-width="2"/>
+        <g filter="url(#pomShadow)">
+          <path d="M430 40 Q405 5 380 35" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+          <path d="M405 20 Q385 -5 360 25" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
+          <path d="M385 10 Q365 -10 340 20" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+          <path d="M450 65 Q425 30 400 60" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
+          <path d="M470 100 Q445 70 420 95" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+        </g>
         <!-- гранат -->
-        <circle cx="200" cy="250" r="110" fill="url(#pomGrad2)" filter="url(#pomShadow)"/>
-        <circle cx="200" cy="250" r="110" fill="url(#pomHighlight2)" />
-        <path d="M165 150 Q190 130 215 150 Q200 120 165 150" fill="#5a2e2e" stroke="#3e1e1e" stroke-width="4"/>
-        <ellipse cx="140" cy="220" rx="30" ry="15" fill="#ffb5b5" opacity="0.2"/>
-        <ellipse cx="240" cy="290" rx="30" ry="15" fill="#ffb5b5" opacity="0.3"/>
+        <circle cx="280" cy="300" r="130" fill="url(#pomSkinRight)" filter="url(#pomShadow)"/>
+        <circle cx="280" cy="300" r="130" fill="url(#pomHighlightRight)"/>
+        <path d="M240 190 Q270 160 300 190 Q285 170 240 190" fill="#5a2e2e" stroke="#3e1e1e" stroke-width="4"/>
+        <ellipse cx="230" cy="260" rx="30" ry="18" fill="#ffb5b5" opacity="0.2"/>
+        <ellipse cx="330" cy="330" rx="35" ry="18" fill="#ffb5b5" opacity="0.3"/>
+        <path d="M290 330 Q310 350 335 340" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
+        <path d="M220 370 Q240 390 270 380" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
+        <path d="M260 270 Q275 285 300 275" stroke="#631b1b" stroke-width="2" opacity="0.4" fill="none"/>
       </svg>
     </div>
   </div>
@@ -548,7 +554,6 @@
         <div class="stamp-denomination">01 <i class="fa-regular fa-star"></i></div>
         <div class="stamp-country">ITMO · RUSSIA</div>
         <div class="stamp-year">2025</div>
-        <div class="wear"></div>
         <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">привет, я Лиза</h3>
         <div class="stamp-taxon">Amphiprion percula (рыба‑клоун)</div>
         <p>Студентка 1‑го курса, учусь превращать строки в работающие сервисы. Обожаю карты, билеты, запах аэропортов и местный кофе. Верю, что программирование и путешествия — идеальный симбиоз.</p>
@@ -561,7 +566,6 @@
       <div class="stamp" style="display: flex; flex-direction: column; align-items: center;">
         <div class="stamp-denomination">polaroid</div>
         <div class="stamp-country">SELF · 2025</div>
-        <div class="wear"></div>
         <div class="photo-placeholder" style="width: 100%; aspect-ratio: 1/1.1;">
           <i class="fas fa-mountain-sun"></i>
           <span style="font-weight: 600;"><i class="fas fa-portrait"></i> фото здесь</span>
@@ -582,7 +586,6 @@
         <div class="stamp-country">SINGAPORE</div>
         <div class="stamp-year">'24</div>
         <div class="stamp-taxon">Trichogaster</div>
-        <div class="wear"></div>
         <h3><i class="fab fa-python"></i> Python</h3>
         <p>Основы, боты, парсинг. Участвую в учебных проектах.</p>
       </div>
@@ -592,7 +595,6 @@
         <div class="stamp-country">SINGAPORE</div>
         <div class="stamp-year">'24</div>
         <div class="stamp-taxon">Trichopterus</div>
-        <div class="wear"></div>
         <h3><i class="fab fa-js"></i> JavaScript</h3>
         <p>DOM, fetch, маленькие игры. Хочу углубиться в React.</p>
       </div>
@@ -602,7 +604,6 @@
         <div class="stamp-country">ITMO</div>
         <div class="stamp-year">2025</div>
         <div class="stamp-taxon">Rasbora</div>
-        <div class="wear"></div>
         <h3><i class="fas fa-database"></i> SQL</h3>
         <p>Запросы, SQLite, базовое проектирование.</p>
       </div>
@@ -612,7 +613,6 @@
         <div class="stamp-country">RUSSIA</div>
         <div class="stamp-year">'23</div>
         <div class="stamp-taxon">Heteromorpha</div>
-        <div class="wear"></div>
         <h3><i class="fab fa-git-alt"></i> Git / GitHub</h3>
         <p>Версионный контроль, работа в команде.</p>
       </div>
@@ -622,7 +622,6 @@
         <div class="stamp-country">JAPAN</div>
         <div class="stamp-year">2024</div>
         <div class="stamp-taxon">Amphiprion</div>
-        <div class="wear"></div>
         <h3><i class="fas fa-paint-brush"></i> Figma</h3>
         <p>Прототипирование интерфейсов.</p>
       </div>
@@ -632,7 +631,6 @@
         <div class="stamp-country">SINGAPORE</div>
         <div class="stamp-year">'25</div>
         <div class="stamp-taxon">Percula</div>
-        <div class="wear"></div>
         <h3><i class="fas fa-code"></i> HTML/CSS</h3>
         <p>Адаптивная вёрстка, анимации, сетки.</p>
       </div>
@@ -642,7 +640,6 @@
         <div class="stamp-country">KOREA</div>
         <div class="stamp-year">2024</div>
         <div class="stamp-taxon">Trichogaster</div>
-        <div class="wear"></div>
         <h3><i class="fas fa-camera"></i> фото/обработка</h3>
         <p>Съёмка на плёнку, Lightroom.</p>
       </div>
@@ -652,7 +649,6 @@
         <div class="stamp-country">ITMO</div>
         <div class="stamp-year">2025</div>
         <div class="stamp-taxon">Rasbora</div>
-        <div class="wear"></div>
         <h3><i class="fas fa-language"></i> English (B2)</h3>
         <p>Техническая литература, переписка.</p>
       </div>
@@ -669,7 +665,6 @@
         <div class="stamp-country">GITHUB</div>
         <div class="stamp-year">2025</div>
         <div class="stamp-taxon">Amphiprion</div>
-        <div class="wear"></div>
         <h3><i class="fas fa-robot"></i> Travel‑бот</h3>
         <div class="photo-placeholder" style="height: 140px;">
           <i class="fas fa-bolt"></i> aiogram
@@ -682,7 +677,6 @@
         <div class="stamp-country">ITMO</div>
         <div class="stamp-year">2024</div>
         <div class="stamp-taxon">Trichopterus</div>
-        <div class="wear"></div>
         <h3><i class="fas fa-globe"></i> Сайт‑визитка</h3>
         <div class="photo-placeholder" style="height: 140px;">
           <i class="fas fa-stamp"></i> марочный стиль
@@ -695,7 +689,6 @@
         <div class="stamp-country">RASBORA</div>
         <div class="stamp-year">2025</div>
         <div class="stamp-taxon">Heteromorpha</div>
-        <div class="wear"></div>
         <h3><i class="fas fa-chart-line"></i> Анализ турпотоков</h3>
         <div class="photo-placeholder" style="height: 140px;">
           <i class="fas fa-table"></i> pandas + dash
@@ -715,7 +708,6 @@
         <div class="stamp-country">RUSSIA</div>
         <div class="stamp-year">2023</div>
         <div class="stamp-taxon">Байкал</div>
-        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-water"></i> лёд / ходули
         </div>
@@ -727,7 +719,6 @@
         <div class="stamp-country">RUSSIA</div>
         <div class="stamp-year">2024</div>
         <div class="stamp-taxon">Алтай</div>
-        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-tree"></i> горные реки
         </div>
@@ -739,7 +730,6 @@
         <div class="stamp-country">TURKEY</div>
         <div class="stamp-year">2024</div>
         <div class="stamp-taxon">Каппадокия</div>
-        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-hot-air-balloon"></i> рассвет
         </div>
@@ -751,7 +741,6 @@
         <div class="stamp-country">RUSSIA</div>
         <div class="stamp-year">2025</div>
         <div class="stamp-taxon">Камчатка</div>
-        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-volcano"></i> в планах
         </div>
@@ -763,7 +752,6 @@
         <div class="stamp-country">JAPAN</div>
         <div class="stamp-year">мечта</div>
         <div class="stamp-taxon">Хоккайдо</div>
-        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-snowflake"></i> фестиваль снега
         </div>
@@ -775,7 +763,6 @@
         <div class="stamp-country">NORWAY</div>
         <div class="stamp-year">2026?</div>
         <div class="stamp-taxon">Лофотены</div>
-        <div class="wear"></div>
         <div class="photo-placeholder" style="height: 160px;">
           <i class="fas fa-mountain"></i> фьорды
         </div>
@@ -792,7 +779,6 @@
         <div class="stamp-denomination"><i class="fa-regular fa-envelope"></i></div>
         <div class="stamp-country">SINGAPORE · ITMO</div>
         <div class="stamp-year">✉︎</div>
-        <div class="wear"></div>
         <h3 style="font-size: 2rem; margin-bottom: 1rem;">Елизавета Симина</h3>
         <div class="stamp-taxon">Amphiprion percula · всегда рада новым знакомствам</div>
         <div class="contact-links">
