@@ -12,81 +12,74 @@
 /* ================= THEME ================= */
 
 :root{
-  --bg:#f4efe7;
-  --card:#ffffff;
-  --text:#1b1b1b;
-  --accent:#9e2f2f;
-  --deep:#16242c;
-  --soft:#e2d8c9;
+  --bg:#f3ede3;
+  --paper:#fffdf8;
+  --text:#1a1a1a;
+  --accent:#8f2e2e;
+  --deep:#15232a;
+  --texture:rgba(0,0,0,0.03);
 }
 
 body.dark{
-  --bg:#0f1720;
-  --card:#1c2530;
-  --text:#f1f1f1;
-  --accent:#d96b6b;
-  --deep:#0a1118;
-  --soft:#2a3642;
+  --bg:#0f171c;
+  --paper:#1c252c;
+  --text:#f3f3f3;
+  --accent:#d36a6a;
+  --deep:#0b1115;
+  --texture:rgba(255,255,255,0.04);
 }
 
-html{scroll-behavior:smooth;}
 *{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 
 body{
   font-family:'Inter',sans-serif;
   background:var(--bg);
   color:var(--text);
-  transition:.3s;
   overflow-x:hidden;
+  transition:.3s;
 }
 
-/* ========= JAPANESE DECOR LINES ========= */
+/* ================= PAPER TEXTURE ================= */
 
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 140px,
-      rgba(158,47,47,0.05) 141px
-    );
+    radial-gradient(var(--texture) 1px, transparent 1px);
+  background-size:4px 4px;
   pointer-events:none;
-  z-index:-2;
-}
-
-/* subtle botanical radial accent */
-
-body::after{
-  content:"";
-  position:fixed;
-  width:600px;
-  height:600px;
-  background:radial-gradient(circle, rgba(158,47,47,0.08), transparent 70%);
-  top:-200px;
-  right:-200px;
   z-index:-3;
 }
 
-/* ============== NAV ============== */
+/* ================= PARALLAX LAYER ================= */
+
+.parallax-bg{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(180deg, rgba(143,46,46,0.08), transparent);
+  z-index:-2;
+  transform:translateY(0);
+}
+
+/* ================= NAV ================= */
 
 nav{
   position:fixed;
   width:100%;
-  background:rgba(255,255,255,0.6);
+  background:rgba(255,255,255,0.65);
   backdrop-filter:blur(8px);
   padding:15px 10%;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid var(--soft);
   z-index:1000;
+  border-bottom:1px solid rgba(0,0,0,0.05);
 }
 
 body.dark nav{
-  background:rgba(10,17,24,0.7);
+  background:rgba(10,15,18,0.8);
 }
 
 nav ul{
@@ -98,142 +91,126 @@ nav ul{
 nav a{
   text-decoration:none;
   color:var(--text);
-  font-weight:500;
 }
 
-.theme-toggle{
-  cursor:pointer;
-  border:1px solid var(--accent);
-  padding:6px 14px;
-  border-radius:20px;
-  font-size:14px;
-}
-
-/* ============== HERO ============== */
+/* ================= HERO ================= */
 
 header{
   height:100vh;
   background:var(--deep);
   color:white;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   text-align:center;
-  padding:20px;
   position:relative;
 }
 
 header h1{
   font-family:'Noto Serif JP',serif;
-  font-size:52px;
-  margin-bottom:15px;
+  font-size:54px;
+  letter-spacing:2px;
 }
 
-header p{
-  opacity:.9;
-  letter-spacing:1px;
-}
+/* ================= JAPANESE VERTICAL TEXT ================= */
 
-/* decorative horizontal brush line */
-
-header::after{
-  content:"";
+.jp-vertical{
   position:absolute;
-  bottom:60px;
-  width:200px;
-  height:2px;
-  background:var(--accent);
+  right:30px;
+  top:50%;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  font-family:'Noto Serif JP',serif;
+  font-size:18px;
+  opacity:.6;
+  letter-spacing:4px;
 }
 
-/* ============== SECTIONS ============== */
+/* ================= SECTIONS ================= */
 
 section{
-  padding:100px 10%;
+  padding:120px 10%;
   position:relative;
 }
 
 .section-title{
   font-family:'Noto Serif JP',serif;
-  font-size:30px;
+  font-size:32px;
   margin-bottom:50px;
-  border-left:4px solid var(--accent);
+  border-left:5px solid var(--accent);
   padding-left:15px;
 }
 
-/* decorative vertical japanese text-style line */
-
-.section-title::after{
-  content:"";
-  display:block;
-  width:60px;
-  height:1px;
-  background:var(--accent);
-  margin-top:10px;
-}
-
-/* ============== GRID ============== */
+/* ================= GRID ================= */
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:40px;
 }
 
-/* ============== CARD ============== */
-
-.card{
-  background:var(--card);
-  padding:30px;
-  border-radius:14px;
-  border:1px solid var(--soft);
-  transition:.3s;
-  position:relative;
-}
-
-.card:hover{
-  transform:translateY(-6px);
-  border-color:var(--accent);
-}
-
-/* ============== STAMP PHOTO BLOCK ============== */
+/* ================= STAMP ================= */
 
 .stamp{
-  width:100%;
-  height:200px;
-  background:var(--soft);
-  margin-bottom:15px;
+  background:var(--paper);
+  padding:20px;
   position:relative;
-  clip-path:polygon(
-    5% 0%, 95% 0%, 100% 5%, 100% 95%,
-    95% 100%, 5% 100%, 0% 95%, 0% 5%
-  );
-  border:2px dashed var(--accent);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:14px;
-  letter-spacing:2px;
-  text-transform:uppercase;
+  filter:drop-shadow(0 8px 12px rgba(0,0,0,0.08));
+  transition:.4s;
 }
 
-/* decorative stamp perforation dots */
+/* perforated edge */
 
 .stamp::before{
   content:"";
   position:absolute;
-  inset:0;
+  inset:-8px;
   background:
-    radial-gradient(circle, var(--accent) 1px, transparent 1px);
-  background-size:14px 14px;
-  opacity:.15;
-  clip-path:inherit;
+    radial-gradient(circle, var(--bg) 6px, transparent 7px);
+  background-size:20px 20px;
+  z-index:-1;
 }
 
-/* ============== BUTTON ============== */
+/* fake tape */
+
+.stamp::after{
+  content:"";
+  position:absolute;
+  top:-15px;
+  left:30%;
+  width:80px;
+  height:25px;
+  background:rgba(255,255,255,0.5);
+  transform:rotate(-5deg);
+  backdrop-filter:blur(2px);
+}
+
+/* hover effect */
+
+.stamp:hover{
+  transform:rotate(-2deg) scale(1.03);
+}
+
+/* ================= SVG POMEGRANATE DECOR ================= */
+
+.decor-left,
+.decor-right{
+  position:fixed;
+  top:100px;
+  width:180px;
+  opacity:.15;
+  z-index:-1;
+}
+
+.decor-left{left:0;}
+.decor-right{right:0;transform:scaleX(-1);}
+
+/* ================= BUTTON ================= */
+
 .btn{
   display:inline-block;
   margin-top:20px;
-  padding:12px 24px;
+  padding:12px 26px;
   border:1px solid var(--accent);
   border-radius:30px;
   text-decoration:none;
@@ -246,38 +223,33 @@ section{
   color:white;
 }
 
-/* ============== FOOTER ============== */
-
+/* ================= FOOTER ================= */
 footer{
-  text-align:center;
-  padding:40px;
   background:var(--deep);
   color:white;
-}
-
-/* ============== FADE ============== */
-
-.fade{
-  opacity:0;
-  transform:translateY(30px);
-  transition:.8s ease;
-}
-
-.fade.show{
-  opacity:1;
-  transform:none;
-}
-
-/* ============== RESPONSIVE ============== */
-
-@media(max-width:768px){
-  header h1{font-size:34px;}
+  text-align:center;
+  padding:40px;
 }
 
 </style>
 </head>
 
 <body>
+
+<div class="parallax-bg" id="parallax"></div>
+
+<!-- SVG Pomegranate Branch -->
+<svg class="decor-left" viewBox="0 0 200 600">
+  <circle cx="100" cy="200" r="40" fill="#8f2e2e"/>
+  <circle cx="130" cy="260" r="30" fill="#8f2e2e"/>
+  <line x1="100" y1="200" x2="120" y2="260" stroke="#5a3a2e" stroke-width="4"/>
+</svg>
+
+<svg class="decor-right" viewBox="0 0 200 600">
+  <circle cx="100" cy="200" r="40" fill="#8f2e2e"/>
+  <circle cx="130" cy="260" r="30" fill="#8f2e2e"/>
+  <line x1="100" y1="200" x2="120" y2="260" stroke="#5a3a2e" stroke-width="4"/>
+</svg>
 
 <nav>
   <strong>ES | ITMO</strong>
@@ -286,51 +258,29 @@ footer{
     <li><a href="#portfolio">Портфолио</a></li>
     <li><a href="#contacts">Контакты</a></li>
   </ul>
-  <div class="theme-toggle" onclick="toggleTheme()">🌗 Тема</div>
 </nav>
 
 <header>
   <div>
     <h1>Симина Елизавета</h1>
-    <p>Студентка ИТМО | Frontend Developer | Путешествия</p>
-    <a href="resume.pdf" download class="btn">Скачать PDF-резюме</a>
+    <p>Студентка ИТМО | Frontend Developer</p>
+    <a href="resume.pdf" download class="btn">Скачать PDF</a>
   </div>
+
+  <div class="jp-vertical">創造 ・ 技術 ・ 表現</div>
 </header>
 
-<section id="about">
-  <h2 class="section-title fade">Обо мне</h2>
-  <p class="fade">
-    Студентка 1 курса ИТМО по направлению «Программирование».
-    Развиваюсь в frontend-разработке, изучаю архитектуру интерфейсов,
-    современные технологии и визуальные решения.
-  </p>
-</section>
-
 <section id="portfolio">
-  <h2 class="section-title fade">Портфолио</h2>
+  <h2 class="section-title">Портфолио</h2>
   <div class="grid">
-    <div class="card fade">
-      <div class="stamp">Место для фото</div>
+    <div class="stamp">
       <h3>Каталог книг</h3>
       <p>Веб-приложение для управления библиотекой.</p>
     </div>
 
-    <div class="card fade">
-      <div class="stamp">Место для фото</div>
+    <div class="stamp">
       <h3>Java проект</h3>
-      <p>ООП-приложение с обработкой данных.</p>
-    </div>
-  </div>
-</section>
-
-<section id="contacts">
-  <h2 class="section-title fade">Контакты</h2>
-  <div class="grid">
-    <div class="card fade">
-      Email: example@email.com
-    </div>
-    <div class="card fade">
-      GitHub: github.com/username
+      <p>ООП-приложение с логикой обработки данных.</p>
     </div>
   </div>
 </section>
@@ -341,33 +291,13 @@ footer{
 
 <script>
 
-/* Theme */
+/* Parallax */
 
-function toggleTheme(){
-  document.body.classList.toggle("dark");
-  localStorage.setItem("theme",
-    document.body.classList.contains("dark")?"dark":"light");
-}
-
-window.onload=function(){
-  if(localStorage.getItem("theme")==="dark"){
-    document.body.classList.add("dark");
-  }
-};
-
-/* Fade animation */
-
-const faders=document.querySelectorAll(".fade");
-
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("show");
-    }
-  });
-},{threshold:.2});
-
-faders.forEach(el=>observer.observe(el));
+window.addEventListener("scroll", function(){
+  const offset = window.scrollY;
+  document.getElementById("parallax")
+    .style.transform = "translateY(" + offset * 0.3 + "px)";
+});
 
 </script>
 
