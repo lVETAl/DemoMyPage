@@ -1,404 +1,320 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Елизавета Симина · резюме · код и путешествия</title>
-  <!-- Font Awesome 6 (иконки) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts: моно для заголовков, гротеск для текста -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    /* ---------- СБРОС + ПЕРЕМЕННЫЕ ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Симина Елизавета | Portfolio</title>
 
-    body {
-      background-color: #0b1c2f; /* глубокий тёмно-синий — вайб "Midnights" */
-      font-family: 'Work Sans', sans-serif;
-      color: #eaeef2;
-      line-height: 1.6;
-      padding: 2rem;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-    }
+<style>
 
-    /* ---------- ХЕДЕР: НЕОНОВОЕ СВЕЧЕНИЕ ---------- */
-    header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      margin-bottom: 4rem;
-      position: relative;
-    }
+/* ================== THEME VARIABLES ================== */
 
-    h1 {
-      font-family: 'Space Mono', monospace;
-      font-size: 4rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: #ffdb7e; /* тёплый жёлтый */
-      text-shadow: 0 0 8px #ffa759, 0 0 18px #ff8c42, 0 0 30px #ff5710;
-      margin-bottom: 0.5rem;
-    }
+:root {
+    --bg: #f6f3ed;
+    --card-bg: #ffffff;
+    --text: #1a1a1a;
+    --accent: #b33a3a;
+    --deep: #1e2f3a;
+    --soft: #e4dfd6;
+}
 
-    .subhead {
-      font-size: 1.4rem;
-      font-weight: 300;
-      color: #c4e0ff;
-      background: rgba(11, 28, 47, 0.65);
-      backdrop-filter: blur(4px);
-      padding: 0.6rem 2rem;
-      border-radius: 50px;
-      border: 1.5px dashed #ffa759;
-      display: inline-flex;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+body.dark {
+    --bg: #111827;
+    --card-bg: #1f2937;
+    --text: #f3f4f6;
+    --accent: #d97777;
+    --deep: #0f172a;
+    --soft: #374151;
+}
 
-    /* ---------- ОСНОВНОЙ «МАРОЧНЫЙ» СТИЛЬ БЛОКОВ ---------- */
-    .stamp {
-      background-color: #fffcf3; /* тёплый светлый фон, как у старых марок */
-      color: #1e2a3a;
-      padding: 1.6rem;
-      border-radius: 24px;
-      border: 2px dashed #ff8c42; /* пунктир — намёк на перфорацию */
-      box-shadow: 10px 10px 0 rgba(255, 140, 66, 0.25), 14px 14px 20px rgba(0, 0, 0, 0.35);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
+/* ================== BASE ================== */
 
-    .stamp:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 14px 14px 0 rgba(255, 140, 66, 0.45), 18px 18px 26px rgba(0, 0, 0, 0.5);
-    }
+html { scroll-behavior: smooth; }
 
-    /* маленький декоративный элемент — самолётик / марка */
-    .stamp::after {
-      content: "✈︎";
-      position: absolute;
-      bottom: 12px;
-      right: 18px;
-      font-size: 2rem;
-      color: rgba(255, 115, 0, 0.12);
-      transform: rotate(10deg);
-      pointer-events: none;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    /* индивидуальные оттенки для разделов */
-    .stamp.skill {
-      background-color: #ffefd9; /* персиковый */
-    }
-    .stamp.travel {
-      background-color: #dcf2f0; /* бирюзово-мятный */
-    }
-    .stamp.project {
-      background-color: #f6ebd6; /* песочный */
-    }
-    .stamp.contact {
-      background-color: #ffe6f0; /* нежно-розовый */
-    }
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s ease;
+}
 
-    /* заголовки внутри марок */
-    .stamp h2, .stamp h3 {
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      border-bottom: 2.5px solid #ff8c42;
-      display: inline-block;
-      padding-bottom: 0.3rem;
-      letter-spacing: 0.05em;
-    }
+/* subtle japanese background pattern */
 
-    .stamp h3 {
-      font-size: 1.25rem;
-      border-bottom-width: 1.8px;
-    }
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 120px,
+            rgba(179,58,58,0.03) 121px
+        );
+    pointer-events: none;
+    z-index: -1;
+}
 
-    /* иконки с акцентом */
-    .stamp i {
-      color: #ff6b35;
-      margin-right: 0.5rem;
-    }
+/* ================== NAV ================== */
 
-    /* ---------- СЕТКА ДЛЯ МАРОК (АВТОПОДГОН) ---------- */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
+nav {
+    position: fixed;
+    width: 100%;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(8px);
+    padding: 15px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    border-bottom: 1px solid var(--soft);
+}
 
-    /* ---------- ПЛЕЙСХОЛДЕРЫ ДЛЯ БУДУЩИХ ФОТО ---------- */
-    .photo-placeholder {
-      background: linear-gradient(145deg, #cbd5e1, #b0bec5);
-      border-radius: 18px;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #1e2a3a;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.9rem;
-      border: 3px dashed #ff8c42;
-      aspect-ratio: 1 / 0.9;
-      background-image: repeating-linear-gradient(45deg, rgba(255, 140, 66, 0.1) 0px, rgba(255, 140, 66, 0.1) 10px, transparent 10px, transparent 20px);
-      margin-top: 0.5rem;
-      text-align: center;
-    }
+body.dark nav {
+    background: rgba(17,24,39,0.7);
+}
 
-    .photo-placeholder i {
-      font-size: 2.2rem;
-      color: #ff8c42;
-      margin-bottom: 0.3rem;
-    }
+nav ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
 
-    /* ---------- О СЕБЕ: БЛОК С ФОТО И ТЕКСТОМ ---------- */
-    .about-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      margin: 2rem 0 3rem;
-    }
+nav a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+}
 
-    .about-text {
-      flex: 2;
-      min-width: 280px;
-    }
+.theme-toggle {
+    cursor: pointer;
+    padding: 6px 12px;
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    font-size: 14px;
+}
 
-    .about-photo {
-      flex: 1;
-      min-width: 220px;
-    }
+/* ================== HERO ================== */
 
-    /* список навыков (без маркеров) */
-    .skill-list {
-      list-style: none;
-      margin-top: 0.5rem;
-    }
+header {
+    height: 100vh;
+    background: var(--deep);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+}
 
-    .skill-list li {
-      margin-bottom: 0.6rem;
-      display: flex;
-      align-items: center;
-    }
+header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 60%;
+    height: 1px;
+    background: var(--accent);
+}
 
-    .skill-list i {
-      width: 1.6rem;
-      text-align: center;
-    }
+header h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 48px;
+    margin-bottom: 20px;
+}
 
-    /* декоративные "зубчики" как на марках (перфорация) */
-    .perforation {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 12px;
-      margin-top: 0.8rem;
-      margin-bottom: 0.4rem;
-    }
+/* ================== SECTIONS ================== */
 
-    .perforation span {
-      width: 8px;
-      height: 8px;
-      background: #0b1c2f;
-      border-radius: 50%;
-      opacity: 0.4;
-    }
+section {
+    padding: 100px 10%;
+}
 
-    /* ---------- ФУТЕР ---------- */
-    footer {
-      margin-top: 4rem;
-      text-align: center;
-      color: #aab8c5;
-      border-top: 1.5px dashed #ff8c42;
-      padding-top: 2rem;
-      font-size: 0.95rem;
-    }
+.section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 30px;
+    margin-bottom: 50px;
+    border-left: 4px solid var(--accent);
+    padding-left: 15px;
+}
 
-    /* ---------- АДАПТАЦИЯ ПОД МОБИЛЬНЫЕ ---------- */
-    @media (max-width: 700px) {
-      body {
-        padding: 1rem;
-      }
-      h1 {
-        font-size: 2.5rem;
-        letter-spacing: 0.1em;
-      }
-      .subhead {
-        font-size: 1.1rem;
-        padding: 0.5rem 1rem;
-      }
-      .grid {
-        gap: 1.2rem;
-      }
-    }
-  </style>
+/* ================== CARDS ================== */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 14px;
+    border: 1px solid var(--soft);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+}
+
+.project-img {
+    height: 180px;
+    background: var(--soft);
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* ================== BUTTON ================== */
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border: 1px solid var(--accent);
+    border-radius: 25px;
+    text-decoration: none;
+    color: var(--accent);
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: var(--accent);
+    color: white;
+}
+
+/* ================== FOOTER ================== */
+
+footer {
+    text-align: center;
+    padding: 40px;
+    background: var(--deep);
+    color: white;
+}
+
+/* ================== ANIMATION ================== */
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 0.8s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ================== RESPONSIVE ================== */
+@media(max-width: 768px){
+    header h1 { font-size: 32px; }
+    nav ul { gap: 15px; font-size: 14px; }
+}
+
+</style>
 </head>
+
 <body>
-  <div class="container">
 
-    <!-- ШАПКА — настроение MIDNIGHTS -->
-    <header>
-      <h1>ELIZAVETA SIMINA</h1>
-      <div class="subhead">
-        <span><i class="fas fa-code"></i> 1 курс, программирование</span>
-        <span><i class="fas fa-plane"></i> wanderlust</span>
-      </div>
-    </header>
+<nav>
+    <strong>ES</strong>
+    <ul>
+        <li><a href="#about">Обо мне</a></li>
+        <li><a href="#portfolio">Портфолио</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+    </ul>
+    <div class="theme-toggle" onclick="toggleTheme()">🌗 Тема</div>
+</nav>
 
-    <!-- СЕКЦИЯ О СЕБЕ + ФОТО (ПЛЕЙСХОЛДЕР) -->
-    <div class="about-wrapper">
-      <!-- текстовый блок в стиле марки -->
-      <div class="about-text stamp" style="background: #fffcf3;">
-        <h2><i class="fas fa-user-astronaut"></i> привет, я Лиза!</h2>
-        <p style="font-size: 1.1rem; margin-bottom: 1.1rem;">Студентка 1‑го курса, учусь превращать строки кода в работающие штуки. Обожаю карты, билеты, запах аэропортов и местный кофе. Верю, что программирование и путешествия — идеальный тандем.</p>
-        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.5rem;">
-          <span style="background: #ff8c42; color: #0b1c2f; padding: 0.3rem 1.2rem; border-radius: 30px; font-weight: 600;"><i class="fas fa-graduation-cap"></i> ПМИ, 1 курс</span>
-          <span style="background: #ff8c42; color: #0b1c2f; padding: 0.3rem 1.2rem; border-radius: 30px; font-weight: 600;"><i class="fas fa-passport"></i> 10+ городов</span>
-        </div>
-      </div>
-      <!-- фото-заглушка (будущий портрет / кадр из поездки) -->
-      <div class="about-photo">
-        <div class="stamp" style="background: #ffefd9; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-          <h3 style="border-bottom: none; margin-bottom: 0.3rem;"><i class="fas fa-camera-retro"></i> Polaroid</h3>
-          <div class="photo-placeholder" style="width: 100%;">
-            <i class="fas fa-mountain-sun"></i>
-            <span style="font-weight: 600;">скоро здесь</span>
-            Байкал / Алтай
-          </div>
-          <p style="margin-top: 0.8rem; font-style: italic; color: #3b4b5e;">✈︎ мечтаю о Камчатке</p>
-        </div>
-      </div>
+<header>
+    <div>
+        <h1>Симина Елизавета</h1>
+        <p>Frontend Developer | Студентка программирования | Путешествия & Минимализм</p>
+        <a href="resume.pdf" download class="btn">Скачать PDF-резюме</a>
     </div>
+</header>
 
-    <!-- БЛОК НАВЫКОВ — коллекция марок -->
-    <h2 style="font-family: 'Space Mono', monospace; font-size: 2rem; margin: 3rem 0 1rem; color: #ffdb7e; text-shadow: 0 0 6px #ff8c42;">
-      <i class="fas fa-cogs"></i> инструменты
-    </h2>
+<section id="about">
+    <h2 class="section-title fade-in">Обо мне</h2>
+    <p class="fade-in">
+        Студентка 1 курса по направлению «Программирование».
+        Развиваюсь в frontend-разработке, изучаю архитектуру интерфейсов и современные технологии.
+        Вдохновляюсь путешествиями и эстетикой минимализма.
+    </p>
+</section>
+
+<section id="portfolio">
+    <h2 class="section-title fade-in">Портфолио</h2>
     <div class="grid">
-      <div class="stamp skill">
-        <h3><i class="fas fa-code"></i> языки</h3>
-        <ul class="skill-list">
-          <li><i class="fab fa-python"></i> Python (базово)</li>
-          <li><i class="fab fa-js"></i> JavaScript / DOM</li>
-          <li><i class="fas fa-database"></i> SQL (SQLite)</li>
-          <li><i class="fab fa-html5"></i> HTML5 / CSS3</li>
-        </ul>
-      </div>
-      <div class="stamp skill">
-        <h3><i class="fas fa-tools"></i> окружение</h3>
-        <ul class="skill-list">
-          <li><i class="fas fa-git-alt"></i> Git / GitHub</li>
-          <li><i class="fas fa-terminal"></i> VS Code</li>
-          <li><i class="fas fa-figma"></i> Figma (эскизы)</li>
-          <li><i class="fas fa-cloud"></i> базовый Linux</li>
-        </ul>
-      </div>
-      <div class="stamp skill">
-        <h3><i class="fas fa-heart"></i> софт‑скиллы</h3>
-        <ul class="skill-list">
-          <li><i class="fas fa-comments"></i> комуникация</li>
-          <li><i class="fas fa-lightbulb"></i> креативность</li>
-          <li><i class="fas fa-map-signs"></i> адаптивность</li>
-          <li><i class="fas fa-clock"></i> тайминг</li>
-        </ul>
-      </div>
+        <div class="card fade-in">
+            <div class="project-img"></div>
+            <h3>Каталог книг</h3>
+            <p>Веб-приложение для управления библиотекой.</p>
+        </div>
+        <div class="card fade-in">
+            <div class="project-img"></div>
+            <h3>Java проект</h3>
+            <p>ООП-приложение с логикой обработки данных.</p>
+        </div>
     </div>
+</section>
 
-    <!-- ПУТЕШЕСТВИЯ — заглушки фото и локации -->
-    <h2 style="font-family: 'Space Mono', monospace; font-size: 2rem; margin: 3rem 0 1rem; color: #ffdb7e; text-shadow: 0 0 6px #ff8c42;">
-      <i class="fas fa-passport"></i> маршруты
-    </h2>
+<section id="contacts">
+    <h2 class="section-title fade-in">Контакты</h2>
     <div class="grid">
-      <div class="stamp travel">
-        <h3><i class="fas fa-map-pin"></i> уже там была</h3>
-        <div class="photo-placeholder" style="height: 150px;">
-          <i class="fas fa-tree"></i> Алтай, 2023
+        <div class="card fade-in">
+            <p>Email: example@email.com</p>
         </div>
-        <p style="margin-top: 0.7rem;"><i class="fas fa-check-circle" style="color: #2a9d8f;"></i> СПб, Казань, Сочи, Алтай, Владивосток</p>
-      </div>
-      <div class="stamp travel">
-        <h3><i class="fas fa-suitcase-rolling"></i> must visit</h3>
-        <div class="photo-placeholder" style="height: 150px;">
-          <i class="fas fa-volcano"></i> Исландия
+        <div class="card fade-in">
+            <p>GitHub: github.com/username</p>
         </div>
-        <p style="margin-top: 0.7rem;">Япония, Перу, Норвегия, Камчатка, Байкал</p>
-      </div>
-      <div class="stamp travel">
-        <h3><i class="fas fa-calendar-alt"></i> следующий</h3>
-        <div class="photo-placeholder" style="height: 150px;">
-          <i class="fas fa-train"></i> Кругобайкалка
-        </div>
-        <p style="margin-top: 0.7rem;">лето 2025 — поход с рюкзаком</p>
-      </div>
     </div>
+</section>
 
-    <!-- ПРОЕКТЫ — тоже с превью-фото -->
-    <h2 style="font-family: 'Space Mono', monospace; font-size: 2rem; margin: 3rem 0 1rem; color: #ffdb7e; text-shadow: 0 0 6px #ff8c42;">
-      <i class="fas fa-flask"></i> pet‑проекты
-    </h2>
-    <div class="grid">
-      <div class="stamp project">
-        <h3><i class="fas fa-robot"></i> travel‑бот</h3>
-        <div class="photo-placeholder" style="height: 130px;">
-          <i class="fas fa-bolt"></i> aiogram
-        </div>
-        <p style="margin-top: 0.6rem;">Телеграм‑бот для поиска попутчиков (Python).</p>
-      </div>
-      <div class="stamp project">
-        <h3><i class="fas fa-globe"></i> этот сайт</h3>
-        <div class="photo-placeholder" style="height: 130px;">
-          <i class="fas fa-stamp"></i> марки / код
-        </div>
-        <p style="margin-top: 0.6rem;">Резюме в стиле почтовых марок. HTML/CSS.</p>
-      </div>
-      <div class="stamp project">
-        <h3><i class="fas fa-chart-simple"></i> турпотоки</h3>
-        <div class="photo-placeholder" style="height: 130px;">
-          <i class="fas fa-table"></i> pandas
-        </div>
-        <p style="margin-top: 0.6rem;">Анализ данных туристических направлений.</p>
-      </div>
-    </div>
+<footer>
+    © 2026 Симина Елизавета
+</footer>
 
-    <!-- КОНТАКТЫ — отдельная марка в центре -->
-    <div style="display: flex; justify-content: center; margin: 4rem 0 2rem;">
-      <div class="stamp contact" style="max-width: 600px; width: 100%; text-align: center; background: #ffe6f0;">
-        <h2 style="display: block; border-bottom: none; margin-bottom: 1.2rem;">
-          <i class="fas fa-paper-plane"></i> открыта к идеям
-        </h2>
-        <div style="display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; font-size: 1.3rem; margin-bottom: 1rem;">
-          <a href="#" style="color: #1e2a3a; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#ff6b35'" onmouseout="this.style.color='#1e2a3a'"><i class="fab fa-telegram"></i> @liza_simina</a>
-          <a href="#" style="color: #1e2a3a; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#ff6b35'" onmouseout="this.style.color='#1e2a3a'"><i class="fab fa-github"></i> liza-codes</a>
-          <a href="#" style="color: #1e2a3a; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#ff6b35'" onmouseout="this.style.color='#1e2a3a'"><i class="fas fa-envelope"></i> simina@uni.ru</a>
-        </div>
-        <!-- перфорация по нижнему краю (деталь марки) -->
-        <div class="perforation">
-          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <p style="margin-top: 0.8rem; font-size: 0.9rem;"><i class="fas fa-feather"></i> всегда рада коллабам и советам по тревелу</p>
-      </div>
-    </div>
+<script>
 
-    <!-- ПОДВАЛ -->
-    <footer>
-      <p>© 2025 Елизавета Симина — 1 курс, программирование и бесконечные маршруты</p>
-      <p style="margin-top: 0.5rem; opacity: 0.8;">дизайн вдохновлён «Midnights» и винтажными марками <i class="fas fa-heart" style="color: #ff6b6b;"></i></p>
-    </footer>
+/* ====== Theme Toggle ====== */
 
-  </div> <!-- конец .container -->
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+    localStorage.setItem("theme",
+        document.body.classList.contains("dark") ? "dark" : "light"
+    );
+}
+
+window.onload = function() {
+    if(localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+    }
+};
+
+/* ====== Fade-in Animation ====== */
+
+const faders = document.querySelectorAll('.fade-in');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.2 });
+
+faders.forEach(el => observer.observe(el));
+
+</script>
+
 </body>
 </html>
