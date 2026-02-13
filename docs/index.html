@@ -63,7 +63,7 @@
       z-index: -1;
     }
 
-    /* ========== ДЕТАЛИЗИРОВАННЫЕ ГРАНАТЫ ========== */
+    /* ========== МНОЖЕСТВО ДЕТАЛИЗИРОВАННЫХ ГРАНАТОВ ========== */
     .pomegranate-container {
       position: fixed;
       top: 0;
@@ -74,32 +74,26 @@
       z-index: -3;
     }
 
-    .pomegranate-left, .pomegranate-right {
+    /* общие стили для гранатов */
+    .pom {
       position: absolute;
-      width: 460px;
+      width: 300px;
       height: auto;
-      filter: drop-shadow(0 20px 25px rgba(0,0,0,0.3));
+      filter: drop-shadow(0 15px 20px rgba(0,0,0,0.25));
       opacity: 0.9;
     }
 
-    .pomegranate-left {
-      left: -100px;
-      top: 30px;
-      transform: rotate(-10deg);
-    }
+    /* расположение каждого граната */
+    .pom1 { left: -50px; top: 20px; width: 350px; transform: rotate(-12deg); }
+    .pom2 { right: -60px; top: 150px; width: 380px; transform: rotate(8deg) scaleX(-1); }
+    .pom3 { left: 5%; bottom: 10%; width: 280px; transform: rotate(20deg); }
+    .pom4 { right: 8%; top: 40%; width: 320px; transform: rotate(-5deg) scaleX(-1); }
+    .pom5 { left: 15%; top: 55%; width: 260px; transform: rotate(15deg); }
 
-    .pomegranate-right {
-      right: -100px;
-      top: 200px;
-      transform: scaleX(-1) rotate(5deg);
-    }
-
-    /* фотореалистичный гранат с множеством деталей */
     .realistic-pomegranate svg {
       width: 100%;
       height: auto;
       display: block;
-      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
     }
 
     /* ========== НАВИГАЦИЯ ========== */
@@ -211,7 +205,7 @@
       text-shadow: 2px 2px 0 rgba(255,255,240,0.8);
     }
 
-    /* ========== МАРКИ С РЕАЛИСТИЧНЫМИ ЗУБЦАМИ ========== */
+    /* ========== МАРКИ С РЕАЛИСТИЧНЫМИ ПОЛУКРУГЛЫМИ ЗУБЦАМИ ========== */
     .stamp {
       background: var(--paper);
       padding: 2rem;
@@ -225,38 +219,62 @@
         0 15px 25px -8px rgba(0,0,0,0.4),
         inset 0 -2px 5px rgba(0,0,0,0.05),
         inset 2px 2px 8px rgba(255,255,255,0.8);
-      border-radius: 2px 15px 15px 2px; /* лёгкая асимметрия */
+      border-radius: 2px 15px 15px 2px;
       background-image: 
         repeating-linear-gradient(45deg, rgba(0,0,0,0.01) 0px, rgba(0,0,0,0.01) 3px, transparent 3px, transparent 10px),
         radial-gradient(circle at 20% 30%, rgba(140,46,46,0.02) 0%, transparent 30%);
+      z-index: 1; /* марка выше зубцов */
     }
 
-    /* зубчатый край (перфорация) — резные края как у настоящих марок */
+    /* псевдоэлемент для зубцов — теперь он под маркой (z-index: -1) и имеет полукруглые выемки */
     .stamp::before {
       content: "";
       position: absolute;
-      inset: -12px; /* немного выступает за границы марки */
-      background: var(--bg); /* цвет фона страницы */
-      mask-image: radial-gradient(circle at 12px 12px, transparent 6px, black 7px);
-      mask-size: 24px 24px;
-      mask-repeat: repeat;
-      -webkit-mask-image: radial-gradient(circle at 12px 12px, transparent 6px, black 7px);
-      -webkit-mask-size: 24px 24px;
-      -webkit-mask-repeat: repeat;
-      z-index: -1;
-      border-radius: inherit; /* чтобы повторяло форму */
-    }
-
-    /* дополнительный слой для лёгкой тени под зубцами */
-    .stamp::after {
-      content: "";
-      position: absolute;
-      inset: -12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      z-index: -2;
+      inset: -12px; /* немного шире марки */
+      background: var(--paper); /* тот же цвет, что и марка */
+      z-index: -1; /* всегда под маркой */
       border-radius: inherit;
+      pointer-events: none; /* чтобы не мешать кликам */
+      
+      /* маска, создающая полукруглые зубцы по краю */
+      mask-image: 
+        /* Верхний край: полукруги, направленные вверх */
+        repeating-linear-gradient( to right, 
+          transparent 0px, 
+          transparent 10px, 
+          black 10px, 
+          black 20px ),
+        /* Нижний край */
+        repeating-linear-gradient( to right, 
+          transparent 0px, 
+          transparent 10px, 
+          black 10px, 
+          black 20px ),
+        /* Левый край */
+        repeating-linear-gradient( to bottom, 
+          transparent 0px, 
+          transparent 10px, 
+          black 10px, 
+          black 20px ),
+        /* Правый край */
+        repeating-linear-gradient( to bottom, 
+          transparent 0px, 
+          transparent 10px, 
+          black 10px, 
+          black 20px );
+      
+      mask-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+      mask-position: top, bottom, left, right;
+      mask-size: 20px 20px, 20px 20px, 20px 20px, 20px 20px;
+      
+      /* Комбинируем маски (логическое ИЛИ) — по умолчанию сумма, нам нужно, чтобы прозрачные участки были в местах зубцов */
+      mask-composite: exclude; /* исключаем перекрытия, чтобы получить четкие зубцы */
+      
+      /* Дополнительная тень для объема */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
+    /* При наведении зубцы не перекрывают марку, так как они всегда ниже */
     .stamp:hover {
       transform: rotate(1deg) scale(1.02);
       box-shadow: 
@@ -277,7 +295,7 @@
       padding: 2px 8px;
       border-radius: 30px;
       border: 1px solid var(--gold);
-      z-index: 5;
+      z-index: 2; /* выше маски */
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       backdrop-filter: blur(2px);
     }
@@ -292,7 +310,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       opacity: 0.7;
-      z-index: 5;
+      z-index: 2;
       text-shadow: 0 1px 2px rgba(255,255,240,0.5);
     }
 
@@ -311,7 +329,7 @@
       justify-content: center;
       font-weight: 600;
       border: 2px solid var(--gold);
-      z-index: 5;
+      z-index: 2;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
@@ -443,84 +461,104 @@
   </style>
 </head>
 <body>
-  <!-- контейнер для детализированных гранатов -->
+  <!-- контейнер для множества гранатов -->
   <div class="pomegranate-container">
-    <div class="pomegranate-left realistic-pomegranate">
-      <svg viewBox="0 0 500 700" xmlns="http://www.w3.org/2000/svg">
+    <!-- гранат 1 (слева вверху) -->
+    <div class="pom pom1 realistic-pomegranate">
+      <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="pomSkinLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="pomGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#b34b4b" />
-            <stop offset="60%" stop-color="#8c2e2e" />
+            <stop offset="70%" stop-color="#8c2e2e" />
             <stop offset="100%" stop-color="#5a1e1e" />
           </linearGradient>
-          <radialGradient id="pomHighlightLeft" cx="30%" cy="35%" r="50%">
-            <stop offset="0%" stop-color="#e69090" stop-opacity="0.7" />
-            <stop offset="100%" stop-color="#8c2e2e" stop-opacity="0" />
-          </radialGradient>
-          <filter id="pomShadow" x="-0.2" y="-0.2" width="1.5" height="1.5">
-            <feDropShadow dx="10" dy="12" stdDeviation="6" flood-opacity="0.25"/>
+          <filter id="pomShadow1" x="-0.2" y="-0.2" width="1.5" height="1.5">
+            <feDropShadow dx="8" dy="10" stdDeviation="5" flood-opacity="0.3"/>
           </filter>
         </defs>
-        <!-- основные ветки -->
-        <path d="M150 60 C110 30, 60 40, 30 90" stroke="#6a4e2e" stroke-width="16" fill="none" stroke-linecap="round" filter="url(#pomShadow)"/>
-        <path d="M150 60 C110 30, 60 40, 30 90" stroke="#8b6b40" stroke-width="8" fill="none" stroke-linecap="round"/>
-        <!-- множество листьев -->
-        <g filter="url(#pomShadow)">
-          <path d="M70 40 Q95 5 120 35" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
-          <path d="M95 20 Q115 -5 140 25" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
-          <path d="M115 10 Q135 -10 160 20" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
-          <path d="M50 65 Q75 30 100 60" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
-          <path d="M30 100 Q55 70 80 95" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
-        </g>
-        <!-- гранат (основной плод) -->
-        <circle cx="220" cy="300" r="130" fill="url(#pomSkinLeft)" filter="url(#pomShadow)"/>
-        <circle cx="220" cy="300" r="130" fill="url(#pomHighlightLeft)"/>
-        <!-- коронка -->
-        <path d="M180 190 Q210 160 240 190 Q225 170 180 190" fill="#5a2e2e" stroke="#3e1e1e" stroke-width="4"/>
-        <!-- блики и прожилки -->
-        <ellipse cx="170" cy="250" rx="35" ry="20" fill="#ffb5b5" opacity="0.25"/>
-        <ellipse cx="280" cy="340" rx="30" ry="15" fill="#ffb5b5" opacity="0.2"/>
-        <path d="M240 330 Q260 345 285 335" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
-        <path d="M190 370 Q210 385 235 375" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
-        <path d="M160 300 Q175 315 200 305" stroke="#631b1b" stroke-width="2" opacity="0.4" fill="none"/>
-        <!-- трещинки на кожуре -->
-        <path d="M210 270 Q225 265 240 280" stroke="#4f1a1a" stroke-width="2.5" fill="none" opacity="0.4"/>
-        <path d="M270 310 Q285 320 300 310" stroke="#4f1a1a" stroke-width="2.5" fill="none" opacity="0.4"/>
+        <path d="M120 60 C90 30, 50 40, 20 90" stroke="#6a4e2e" stroke-width="14" fill="none" stroke-linecap="round" filter="url(#pomShadow1)"/>
+        <path d="M120 60 C90 30, 50 40, 20 90" stroke="#8b6b40" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M50 40 Q70 5 100 35" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+        <path d="M75 20 Q95 -5 120 25" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
+        <path d="M95 10 Q115 -10 140 20" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+        <circle cx="180" cy="240" r="110" fill="url(#pomGrad1)" filter="url(#pomShadow1)"/>
+        <circle cx="180" cy="240" r="110" fill="url(#pomGrad1)" filter="url(#pomShadow1)"/>
+        <ellipse cx="140" cy="200" rx="30" ry="18" fill="#ffb5b5" opacity="0.3"/>
+        <ellipse cx="230" cy="280" rx="35" ry="20" fill="#ffb5b5" opacity="0.2"/>
+        <path d="M200 270 Q220 285 245 275" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
+        <path d="M150 310 Q170 330 200 320" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
+        <path d="M140 200 Q155 215 180 205" stroke="#631b1b" stroke-width="2" opacity="0.4" fill="none"/>
       </svg>
     </div>
-    <div class="pomegranate-right realistic-pomegranate">
-      <svg viewBox="0 0 500 700" xmlns="http://www.w3.org/2000/svg">
+    <!-- гранат 2 (справа вверху) -->
+    <div class="pom pom2 realistic-pomegranate">
+      <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="pomSkinRight" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="pomGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#b34b4b" />
-            <stop offset="60%" stop-color="#8c2e2e" />
+            <stop offset="70%" stop-color="#8c2e2e" />
             <stop offset="100%" stop-color="#5a1e1e" />
           </linearGradient>
-          <radialGradient id="pomHighlightRight" cx="70%" cy="40%" r="50%">
-            <stop offset="0%" stop-color="#e69090" stop-opacity="0.7" />
-            <stop offset="100%" stop-color="#8c2e2e" stop-opacity="0" />
-          </radialGradient>
         </defs>
-        <!-- ветки -->
-        <path d="M350 60 C390 30, 440 40, 470 90" stroke="#6a4e2e" stroke-width="16" fill="none" stroke-linecap="round" filter="url(#pomShadow)"/>
-        <path d="M350 60 C390 30, 440 40, 470 90" stroke="#8b6b40" stroke-width="8" fill="none" stroke-linecap="round"/>
-        <!-- листья -->
-        <g filter="url(#pomShadow)">
-          <path d="M430 40 Q405 5 380 35" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
-          <path d="M405 20 Q385 -5 360 25" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
-          <path d="M385 10 Q365 -10 340 20" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
-          <path d="M450 65 Q425 30 400 60" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
-          <path d="M470 100 Q445 70 420 95" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
-        </g>
-        <!-- гранат -->
-        <circle cx="280" cy="300" r="130" fill="url(#pomSkinRight)" filter="url(#pomShadow)"/>
-        <circle cx="280" cy="300" r="130" fill="url(#pomHighlightRight)"/>
-        <path d="M240 190 Q270 160 300 190 Q285 170 240 190" fill="#5a2e2e" stroke="#3e1e1e" stroke-width="4"/>
-        <ellipse cx="230" cy="260" rx="30" ry="18" fill="#ffb5b5" opacity="0.2"/>
-        <ellipse cx="330" cy="330" rx="35" ry="18" fill="#ffb5b5" opacity="0.3"/>
-        <path d="M290 330 Q310 350 335 340" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
-        <path d="M220 370 Q240 390 270 380" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
-        <path d="M260 270 Q275 285 300 275" stroke="#631b1b" stroke-width="2" opacity="0.4" fill="none"/>
+        <path d="M280 60 C310 30, 350 40, 380 90" stroke="#6a4e2e" stroke-width="14" fill="none" stroke-linecap="round" filter="url(#pomShadow1)"/>
+        <path d="M280 60 C310 30, 350 40, 380 90" stroke="#8b6b40" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M350 40 Q330 5 300 35" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+        <path d="M325 20 Q305 -5 280 25" fill="#4f7e4f" stroke="#2b4d2b" stroke-width="2"/>
+        <circle cx="220" cy="240" r="110" fill="url(#pomGrad2)" filter="url(#pomShadow1)"/>
+        <ellipse cx="180" cy="200" rx="30" ry="18" fill="#ffb5b5" opacity="0.3"/>
+        <ellipse cx="270" cy="280" rx="35" ry="20" fill="#ffb5b5" opacity="0.2"/>
+        <path d="M240 270 Q260 285 285 275" stroke="#631b1b" stroke-width="3" opacity="0.5" fill="none"/>
+      </svg>
+    </div>
+    <!-- гранат 3 (слева внизу) -->
+    <div class="pom pom3 realistic-pomegranate">
+      <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pomGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#b34b4b" />
+            <stop offset="70%" stop-color="#8c2e2e" />
+            <stop offset="100%" stop-color="#5a1e1e" />
+          </linearGradient>
+        </defs>
+        <path d="M100 400 C70 430, 30 440, 0 390" stroke="#6a4e2e" stroke-width="14" fill="none" stroke-linecap="round" filter="url(#pomShadow1)"/>
+        <path d="M100 400 C70 430, 30 440, 0 390" stroke="#8b6b40" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M30 420 Q50 450 80 425" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+        <circle cx="150" cy="300" r="100" fill="url(#pomGrad3)" filter="url(#pomShadow1)"/>
+        <ellipse cx="120" cy="270" rx="25" ry="15" fill="#ffb5b5" opacity="0.3"/>
+      </svg>
+    </div>
+    <!-- гранат 4 (справа, центр) -->
+    <div class="pom pom4 realistic-pomegranate">
+      <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pomGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#b34b4b" />
+            <stop offset="70%" stop-color="#8c2e2e" />
+            <stop offset="100%" stop-color="#5a1e1e" />
+          </linearGradient>
+        </defs>
+        <path d="M320 250 C350 220 390 210 400 260" stroke="#6a4e2e" stroke-width="14" fill="none" stroke-linecap="round" filter="url(#pomShadow1)"/>
+        <path d="M320 250 C350 220 390 210 400 260" stroke="#8b6b40" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M370 220 Q350 190 320 215" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+        <circle cx="260" cy="300" r="100" fill="url(#pomGrad4)" filter="url(#pomShadow1)"/>
+        <ellipse cx="230" cy="270" rx="25" ry="15" fill="#ffb5b5" opacity="0.3"/>
+      </svg>
+    </div>
+    <!-- гранат 5 (ещё один слева) -->
+    <div class="pom pom5 realistic-pomegranate">
+      <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pomGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#b34b4b" />
+            <stop offset="70%" stop-color="#8c2e2e" />
+            <stop offset="100%" stop-color="#5a1e1e" />
+          </linearGradient>
+        </defs>
+        <path d="M180 450 C150 480 110 490 80 440" stroke="#6a4e2e" stroke-width="14" fill="none" stroke-linecap="round" filter="url(#pomShadow1)"/>
+        <path d="M180 450 C150 480 110 490 80 440" stroke="#8b6b40" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <path d="M110 470 Q130 500 160 475" fill="#3e6b3e" stroke="#2b4d2b" stroke-width="2"/>
+        <circle cx="210" cy="380" r="90" fill="url(#pomGrad5)" filter="url(#pomShadow1)"/>
+        <ellipse cx="180" cy="350" rx="20" ry="12" fill="#ffb5b5" opacity="0.3"/>
       </svg>
     </div>
   </div>
