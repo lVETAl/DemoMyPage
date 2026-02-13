@@ -1,239 +1,719 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<title>Simina Elizaveta | ITMO</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Симина Елизавета · ITMO · марочное резюме</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font Awesome 6 (иконки рыб, кода, путешествий) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Японский шрифт + основной гротеск -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500&family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- ПЕРЕМЕННЫЕ И СБРОС ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    :root {
+      --bg: #f2ebdf;              /* тёплая бумажная основа */
+      --paper: #fffaf2;            /* цвет «марки» */
+      --text: #1b1b1b;
+      --accent: #8c2e2e;           /* тёмно‑красный, как сургуч */
+      --deep: #132029;             /* тёмно‑синий для хедера */
+      --ink: #2a4b5c;              /* бирюзовый оттенок (отсылка к морю) */
+      --gold: #b38b5d;             /* потускневшая латунь */
+    }
 
-<style>
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* ================= BASE ================= */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      position: relative;
+    }
 
-:root{
-  --bg:#f2ebdf;
-  --paper:#fffaf2;
-  --text:#1b1b1b;
-  --accent:#8c2e2e;
-  --deep:#132029;
-}
+    /* ========== БУМАЖНАЯ ТЕКСТУРА ========== */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' /%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.04' /%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: -3;
+    }
 
-html{scroll-behavior:smooth;}
-*{margin:0;padding:0;box-sizing:border-box;}
+    /* ========== ГРАНАТЫ (из черновика) ========== */
+    .granate {
+      position: fixed;
+      top: 120px;
+      width: 280px;
+      opacity: 0.7;
+      z-index: -2;
+      animation: float 6s ease-in-out infinite;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.1));
+    }
 
-body{
-  font-family:'Inter',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-}
+    .granate.right {
+      right: -40px;
+      transform: scaleX(-1);
+    }
 
-/* ================= PAPER TEXTURE ================= */
+    .granate.left {
+      left: -40px;
+    }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events:none;
-  z-index:-3;
-}
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(20px); }
+    }
 
-/* ================= PARALLAX BACKGROUND ================= */
+    .leaf {
+      transform-origin: center;
+      animation: leaf 4s ease-in-out infinite;
+    }
 
-.parallax{
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(140,46,46,0.12), transparent 60%),
-    radial-gradient(circle at 80% 30%, rgba(140,46,46,0.08), transparent 60%);
-  z-index:-4;
-}
+    @keyframes leaf {
+      0%, 100% { transform: rotate(0); }
+      50% { transform: rotate(4deg); }
+    }
 
-/* ================= NAV ================= */
+    /* ========== ПАРАЛЛАКС ФОН ========== */
+    .parallax {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(140,46,46,0.1), transparent 50%),
+                  radial-gradient(circle at 80% 70%, rgba(42,75,92,0.1), transparent 50%);
+      z-index: -4;
+    }
 
-nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  padding:15px 10%;
-  display:flex;
-  justify-content:space-between;
-  background:rgba(255,250,242,0.8);
-  backdrop-filter:blur(8px);
-  z-index:1000;
-}
+    /* ========== НАВИГАЦИЯ ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,250,242,0.8);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      border-bottom: 1px dashed var(--accent);
+    }
 
-nav ul{display:flex;gap:25px;list-style:none;}
-nav a{text-decoration:none;color:var(--text);}
+    nav .logo {
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
 
-/* ================= HERO ================= */
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
 
-header{
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:var(--deep);
-  color:white;
-  position:relative;
-}
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: 0.2s;
+      border-bottom: 1px solid transparent;
+    }
 
-header h1{
-  font-family:'Noto Serif JP',serif;
-  font-size:56px;
-}
+    nav a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
 
-/* ================= VERTICAL TEXT ================= */
+    /* ========== ГЛАВНЫЙ ХЕДЕР ========== */
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: var(--deep);
+      color: white;
+      position: relative;
+      text-align: center;
+    }
 
-.jp-text{
-  position:fixed;
-  right:30px;
-  top:50%;
-  writing-mode:vertical-rl;
-  font-family:'Noto Serif JP',serif;
-  letter-spacing:6px;
-  opacity:.6;
-  transform:translateY(-50%);
-}
+    header h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(3rem, 12vw, 5.5rem);
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 8px var(--accent), 2px 4px 10px rgba(0,0,0,0.6);
+    }
 
-/* ================= SECTIONS ================= */
+    header .sub {
+      font-size: 1.4rem;
+      margin-top: 1.5rem;
+      background: rgba(140,46,46,0.7);
+      padding: 0.6rem 2rem;
+      border-radius: 40px;
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--gold);
+    }
 
-section{
-  padding:120px 10%;
-}
+    /* ========== ВЕРТИКАЛЬНЫЙ ТЕКСТ (ЯПОНСКИЙ) ========== */
+    .jp-vertical {
+      position: fixed;
+      right: 25px;
+      top: 50%;
+      writing-mode: vertical-rl;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 22px;
+      letter-spacing: 8px;
+      color: var(--accent);
+      opacity: 0.6;
+      transform: translateY(-50%);
+      z-index: 500;
+      pointer-events: none;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
 
-/* ================= STAMP ================= */
+    /* ========== ОБЩИЕ СЕКЦИИ ========== */
+    section {
+      padding: 100px 10%;
+      position: relative;
+    }
 
-.stamp{
-  background:var(--paper);
-  padding:30px;
-  position:relative;
-  filter:drop-shadow(0 10px 20px rgba(0,0,0,.15));
-  transition:.4s;
-}
+    .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 2.8rem;
+      margin-bottom: 3rem;
+      display: inline-block;
+      border-bottom: 3px dashed var(--accent);
+      padding-bottom: 0.5rem;
+      color: var(--deep);
+    }
 
-/* perforation */
-.stamp::before{
-  content:"";
-  position:absolute;
-  inset:-10px;
-  background:
-    radial-gradient(circle, var(--bg) 6px, transparent 7px);
-  background-size:22px 22px;
-  z-index:-1;
-}
+    /* ========== МАРОЧНЫЙ БЛОК (STAMP) ========== */
+    .stamp {
+      background: var(--paper);
+      padding: 2rem;
+      position: relative;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.2));
+      transition: all 0.25s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
 
-/* inner border */
-.stamp::after{
-  content:"";
-  position:absolute;
-  inset:10px;
-  border:1px dashed rgba(0,0,0,.2);
-}
+    /* перфорация (зубцы) вокруг марки */
+    .stamp::before {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      background: radial-gradient(circle, var(--bg) 6px, transparent 7px);
+      background-size: 20px 20px;
+      z-index: -1;
+      opacity: 0.9;
+    }
 
-/* hover */
-.stamp:hover{
-  transform:rotate(-2deg) scale(1.04);
-}
+    /* внутренняя пунктирная рамка */
+    .stamp::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px dashed rgba(0,0,0,0.25);
+      pointer-events: none;
+    }
 
-/* ITMO stamp */
-.itmo-stamp{
-  position:absolute;
-  top:20px;
-  right:20px;
-  border:2px solid var(--accent);
-  padding:6px 12px;
-  color:var(--accent);
-  transform:rotate(-15deg);
-  font-weight:600;
-}
+    .stamp:hover {
+      transform: rotate(1deg) scale(1.02);
+      filter: drop-shadow(0 18px 24px rgba(0,0,0,0.3));
+    }
 
-/* ================= SVG GRANATE ================= */
+    /* элементы в стиле почтовых марок (номинал, страна) */
+    .stamp-denomination {
+      position: absolute;
+      top: 12px;
+      left: 16px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(255,255,240,0.7);
+      padding: 2px 8px;
+      border-radius: 30px;
+      border: 1px solid var(--gold);
+      z-index: 5;
+    }
 
-.granate{
-  position:fixed;
-  top:100px;
-  width:280px;
-  opacity:.85;
-  z-index:-1;
-  animation:float 6s ease-in-out infinite;
-}
+    .stamp-country {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+      z-index: 5;
+    }
 
-.granate.right{right:-40px;}
-.granate.left{left:-40px;transform:scaleX(-1);}
+    .stamp-year {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 0.9rem;
+      background: var(--accent);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      border: 2px solid var(--gold);
+      z-index: 5;
+    }
 
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(20px);}
-}
+    /* латинское название (как таксон на марках рыб) */
+    .stamp-taxon {
+      font-style: italic;
+      font-size: 0.8rem;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+      opacity: 0.7;
+    }
 
-.leaf{
-  transform-origin:center;
-  animation:leaf 3s ease-in-out infinite;
-}
+    /* плейсхолдер для будущих фото */
+    .photo-placeholder {
+      background: #dad3c4;
+      background-image: linear-gradient(45deg, #c7bbaa 20%, #e2d8cb 80%);
+      border-radius: 12px;
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #2c3e4e;
+      font-family: 'Inter', monospace;
+      border: 2px dashed var(--accent);
+      aspect-ratio: 1 / 0.9;
+      margin: 0.5rem 0;
+      text-align: center;
+    }
 
-@keyframes leaf{
-  0%,100%{transform:rotate(0);}
-  50%{transform:rotate(3deg);}
-}
+    .photo-placeholder i {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
 
-</style>
+    /* ========== СЕТКИ ========== */
+    .grid-2, .grid-3, .grid-4 {
+      display: grid;
+      gap: 2.5rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2,1fr); }
+    .grid-3 { grid-template-columns: repeat(3,1fr); }
+    .grid-4 { grid-template-columns: repeat(4,1fr); }
+
+    @media (max-width: 900px) {
+      .grid-4 { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 700px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* ========== О СЕБЕ (ДВЕ КОЛОНКИ) ========== */
+    .about-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    @media (max-width: 700px) {
+      .about-wrap { grid-template-columns: 1fr; }
+    }
+
+    /* список с рыбками */
+    .fish-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+    .fish-list li {
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .fish-list i {
+      color: var(--accent);
+      width: 1.6rem;
+      text-align: center;
+    }
+
+    /* ========== КОНТАКТНАЯ МАРКА ========== */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+    .contact-links a {
+      color: var(--deep);
+      text-decoration: none;
+      font-size: 1.3rem;
+      border: 1px solid transparent;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      background: rgba(140,46,46,0.08);
+      transition: 0.2s;
+    }
+    .contact-links a:hover {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: white;
+    }
+
+    /* ========== ФУТЕР ========== */
+    footer {
+      background: var(--deep);
+      color: #ccc;
+      padding: 2.5rem 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      border-top: 3px dashed var(--accent);
+    }
+
+    /* ========== ДОПОЛНИТЕЛЬНЫЕ ШТАМПЫ ========== */
+    .micro-text {
+      font-size: 0.7rem;
+      opacity: 0.5;
+      text-transform: uppercase;
+    }
+
+    /* адаптация */
+    @media (max-width: 600px) {
+      nav ul { gap: 15px; }
+      .section-title { font-size: 2rem; }
+      .jp-vertical { display: none; }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="parallax"></div>
 
-<div class="parallax"></div>
+  <!-- Гранаты (из черновика) -->
+  <svg class="granate left" viewBox="0 0 300 600" preserveAspectRatio="xMidYMid meet">
+    <path d="M150 100 C120 200, 100 300, 150 400" stroke="#5a3a2e" stroke-width="6" fill="none"/>
+    <circle cx="150" cy="260" r="50" fill="#8c2e2e"/>
+    <path d="M120 230 Q150 200 180 230" fill="none" stroke="#fff" opacity=".4"/>
+    <ellipse class="leaf" cx="100" cy="200" rx="40" ry="18" fill="#4a6b3a"/>
+  </svg>
+  <svg class="granate right" viewBox="0 0 300 600" preserveAspectRatio="xMidYMid meet">
+    <path d="M150 100 C120 200, 100 300, 150 400" stroke="#5a3a2e" stroke-width="6" fill="none"/>
+    <circle cx="150" cy="260" r="50" fill="#8c2e2e"/>
+    <path d="M120 230 Q150 200 180 230" fill="none" stroke="#fff" opacity=".4"/>
+    <ellipse class="leaf" cx="200" cy="200" rx="40" ry="18" fill="#4a6b3a"/>
+  </svg>
 
-<!-- GRANATE SVG -->
-<svg class="granate left" viewBox="0 0 300 600">
-  <path d="M150 100 C120 200, 100 300, 150 400" stroke="#5a3a2e" stroke-width="6" fill="none"/>
-  <circle cx="150" cy="260" r="50" fill="#8c2e2e"/>
-  <path d="M120 230 Q150 200 180 230" fill="none" stroke="#fff" opacity=".4"/>
-  <ellipse class="leaf" cx="100" cy="200" rx="40" ry="18" fill="#4a6b3a"/>
-</svg>
-<svg class="granate right" viewBox="0 0 300 600">
-  <path d="M150 100 C120 200, 100 300, 150 400" stroke="#5a3a2e" stroke-width="6" fill="none"/>
-  <circle cx="150" cy="260" r="50" fill="#8c2e2e"/>
-  <path d="M120 230 Q150 200 180 230" fill="none" stroke="#fff" opacity=".4"/>
-  <ellipse class="leaf" cx="200" cy="200" rx="40" ry="18" fill="#4a6b3a"/>
-</svg>
+  <!-- Навигация -->
+  <nav>
+    <div class="logo"><i class="fas fa-fish"></i>  ES · ITMO</div>
+    <ul>
+      <li><a href="#about">обо мне</a></li>
+      <li><a href="#skills">навыки</a></li>
+      <li><a href="#projects">проекты</a></li>
+      <li><a href="#travel">маршруты</a></li>
+      <li><a href="#contact">контакты</a></li>
+    </ul>
+  </nav>
 
-<nav>
-  <strong>ES | ITMO</strong>
-  <ul>
-    <li><a href="#portfolio">Портфолио</a></li>
-  </ul>
-</nav>
+  <!-- Вертикальный японский текст (меняется при скролле) -->
+  <div class="jp-vertical" id="jpVertical">創造</div>
 
-<header>
-  <h1>Симина Елизавета</h1>
-</header>
+  <!-- Хедер с именем -->
+  <header>
+    <h1>Симина<br>Елизавета</h1>
+    <div class="sub"><i class="fas fa-code"></i> 1 курс ITMO · программист · путешественник <i class="fas fa-plane"></i></div>
+  </header>
 
-<div class="jp-text" id="jpText">創造</div>
+  <!-- Секция ОБО МНЕ -->
+  <section id="about">
+    <h2 class="section-title"><i class="fas fa-fish"></i> AMPHIPRION PERCULA</h2>
+    <div class="about-wrap">
+      <!-- Текстовая марка (о себе) -->
+      <div class="stamp" style="background: #fffcf3;">
+        <div class="stamp-denomination">01 <i class="fa-regular fa-star"></i></div>
+        <div class="stamp-country">ITMO · RUSSIA</div>
+        <div class="stamp-year">2025</div>
+        <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem;">привет, я Лиза</h3>
+        <div class="stamp-taxon">Amphiprion percula (рыба‑клоун) — яркая, маленькая, вездесущая</div>
+        <p>Студентка 1‑го курса, учусь превращать строки в работающие сервисы. Обожаю карты, билеты, запах аэропортов и местный кофе. Верю, что программирование и путешествия — идеальный симбиоз. В свободное время коллекционирую марки… и впечатления.</p>
+        <ul class="fish-list">
+          <li><i class="fas fa-laptop-code"></i> Python, JS, SQL — базово, но с огоньком</li>
+          <li><i class="fas fa-map-marked-alt"></i> 10+ стран, 30+ городов</li>
+          <li><i class="fas fa-camera-retro"></i> всегда с собой плёнка</li>
+        </ul>
+      </div>
+      <!-- Фото-плейсхолдер (будущий портрет) -->
+      <div class="stamp" style="background: #f6ebd6; display: flex; flex-direction: column; align-items: center;">
+        <div class="stamp-denomination">polaroid</div>
+        <div class="stamp-country">SELF · 2025</div>
+        <div class="photo-placeholder" style="width: 100%; aspect-ratio: 1/1.1;">
+          <i class="fas fa-mountain-sun"></i>
+          <span style="font-weight: 600;"><i class="fas fa-portrait"></i> фото здесь</span>
+          Байкал / Алтай
+        </div>
+        <p style="margin-top: 1rem;"><i class="fas fa-feather"></i> следующая остановка — Камчатка</p>
+      </div>
+    </div>
+  </section>
 
-<section id="portfolio">
-  <div class="stamp">
-    <div class="itmo-stamp">ITMO</div>
-    <h2>Каталог книг</h2>
-    <p>Frontend проект</p>
-  </div>
-</section>
+  <!-- Секция НАВЫКИ (как марки с рыбами) -->
+  <section id="skills">
+    <h2 class="section-title"><i class="fas fa-tools"></i> TRICHOGASTER · навыки</h2>
+    <div class="grid-4">
+      <!-- навык 1 -->
+      <div class="stamp skill">
+        <div class="stamp-denomination">10C</div>
+        <div class="stamp-country">SINGAPORE</div>
+        <div class="stamp-year">'24</div>
+        <div class="stamp-taxon">Trichogaster</div>
+        <h3><i class="fab fa-python"></i> Python</h3>
+        <p>Основы, боты, парсинг. Участвую в учебных проектах.</p>
+      </div>
+      <!-- навык 2 -->
+      <div class="stamp skill">
+        <div class="stamp-denomination">25C</div>
+        <div class="stamp-country">SINGAPORE</div>
+        <div class="stamp-year">'24</div>
+        <div class="stamp-taxon">Trichopterus</div>
+        <h3><i class="fab fa-js"></i> JavaScript</h3>
+        <p>DOM, fetch, маленькие игры. Хочу углубиться в React.</p>
+      </div>
+      <!-- навык 3 -->
+      <div class="stamp skill">
+        <div class="stamp-denomination">5C</div>
+        <div class="stamp-country">ITMO</div>
+        <div class="stamp-year">2025</div>
+        <div class="stamp-taxon">Rasbora</div>
+        <h3><i class="fas fa-database"></i> SQL</h3>
+        <p>Запросы, SQLite, базовое проектирование.</p>
+      </div>
+      <!-- навык 4 -->
+      <div class="stamp skill">
+        <div class="stamp-denomination">15C</div>
+        <div class="stamp-country">RUSSIA</div>
+        <div class="stamp-year">'23</div>
+        <div class="stamp-taxon">Heteromorpha</div>
+        <h3><i class="fab fa-git-alt"></i> Git / GitHub</h3>
+        <p>Версионный контроль, работа в команде.</p>
+      </div>
+      <!-- навык 5 (ещё один) -->
+      <div class="stamp skill">
+        <div class="stamp-denomination">8C</div>
+        <div class="stamp-country">JAPAN</div>
+        <div class="stamp-year">2024</div>
+        <div class="stamp-taxon">Amphiprion</div>
+        <h3><i class="fas fa-paint-brush"></i> Figma</h3>
+        <p>Прототипирование интерфейсов.</p>
+      </div>
+      <!-- навык 6 -->
+      <div class="stamp skill">
+        <div class="stamp-denomination">12C</div>
+        <div class="stamp-country">SINGAPORE</div>
+        <div class="stamp-year">'25</div>
+        <div class="stamp-taxon">Percula</div>
+        <h3><i class="fas fa-code"></i> HTML/CSS</h3>
+        <p>Адаптивная вёрстка, анимации, сетки.</p>
+      </div>
+      <!-- навык 7 -->
+      <div class="stamp skill">
+        <div class="stamp-denomination">7C</div>
+        <div class="stamp-country">KOREA</div>
+        <div class="stamp-year">2024</div>
+        <div class="stamp-taxon">Trichogaster</div>
+        <h3><i class="fas fa-camera"></i> фото/обработка</h3>
+        <p>Съёмка на плёнку, Lightroom.</p>
+      </div>
+      <!-- навык 8 -->
+      <div class="stamp skill">
+        <div class="stamp-denomination">20C</div>
+        <div class="stamp-country">ITMO</div>
+        <div class="stamp-year">2025</div>
+        <div class="stamp-taxon">Rasbora</div>
+        <h3><i class="fas fa-language"></i> English (B2)</h3>
+        <p>Техническая литература, переписка.</p>
+      </div>
+    </div>
+  </section>
 
-<script>
+  <!-- Секция ПРОЕКТЫ -->
+  <section id="projects">
+    <h2 class="section-title"><i class="fas fa-flask"></i> · проекты · </h2>
+    <div class="grid-3">
+      <!-- проект 1 -->
+      <div class="stamp project">
+        <div class="stamp-denomination">β</div>
+        <div class="stamp-country">GITHUB</div>
+        <div class="stamp-year">2025</div>
+        <div class="stamp-taxon">Amphiprion</div>
+        <h3><i class="fas fa-robot"></i> Travel‑бот</h3>
+        <div class="photo-placeholder" style="height: 140px;">
+          <i class="fas fa-bolt"></i> aiogram
+        </div>
+        <p>Telegram‑бот для поиска попутчиков и сбора локаций. Хранение в SQLite.</p>
+      </div>
+      <!-- проект 2 -->
+      <div class="stamp project">
+        <div class="stamp-denomination">α</div>
+        <div class="stamp-country">ITMO</div>
+        <div class="stamp-year">2024</div>
+        <div class="stamp-taxon">Trichopterus</div>
+        <h3><i class="fas fa-globe"></i> Сайт‑визитка</h3>
+        <div class="photo-placeholder" style="height: 140px;">
+          <i class="fas fa-stamp"></i> марочный стиль
+        </div>
+        <p>Первое портфолио в духе почтовых марок (этот сайт — его эволюция).</p>
+      </div>
+      <!-- проект 3 -->
+      <div class="stamp project">
+        <div class="stamp-denomination">γ</div>
+        <div class="stamp-country">RASBORA</div>
+        <div class="stamp-year">2025</div>
+        <div class="stamp-taxon">Heteromorpha</div>
+        <h3><i class="fas fa-chart-line"></i> Анализ турпотоков</h3>
+        <div class="photo-placeholder" style="height: 140px;">
+          <i class="fas fa-table"></i> pandas + dash
+        </div>
+        <p>Дашборд по популярным направлениям (учебный проект).</p>
+      </div>
+    </div>
+  </section>
 
-/* vertical text change */
-const texts=["創造","技術","表現","感性"];
-let i=0;
-window.addEventListener("scroll",()=>{
-  if(window.scrollY%200<5){
-    document.getElementById("jpText").innerText=texts[i++%texts.length];
-  }
-});
+  <!-- Секция ПУТЕШЕСТВИЯ (Travel) -->
+  <section id="travel">
+    <h2 class="section-title"><i class="fas fa-passport"></i> коллекция маршрутов</h2>
+    <div class="grid-3">
+      <!-- место 1 -->
+      <div class="stamp travel">
+        <div class="stamp-denomination">✈︎</div>
+        <div class="stamp-country">RUSSIA</div>
+        <div class="stamp-year">2023</div>
+        <div class="stamp-taxon">Байкал</div>
+        <div class="photo-placeholder" style="height: 160px;">
+          <i class="fas fa-water"></i> лёд / ходули
+        </div>
+        <p>Зимний Байкал, коньки, метановые пузырьки.</p>
+      </div>
+      <!-- место 2 -->
+      <div class="stamp travel">
+        <div class="stamp-denomination">✈︎</div>
+        <div class="stamp-country">RUSSIA</div>
+        <div class="stamp-year">2024</div>
+        <div class="stamp-taxon">Алтай</div>
+        <div class="photo-placeholder" style="height: 160px;">
+          <i class="fas fa-tree"></i> горные реки
+        </div>
+        <p>Сплавы, пешие треки, ночёвки в палатках.</p>
+      </div>
+      <!-- место 3 -->
+      <div class="stamp travel">
+        <div class="stamp-denomination">✈︎</div>
+        <div class="stamp-country">TURKEY</div>
+        <div class="stamp-year">2024</div>
+        <div class="stamp-taxon">Каппадокия</div>
+        <div class="photo-placeholder" style="height: 160px;">
+          <i class="fas fa-hot-air-balloon"></i> рассвет
+        </div>
+        <p>Полёт на воздушном шаре, скальные города.</p>
+      </div>
+      <!-- место 4 (добавим ещё) -->
+      <div class="stamp travel">
+        <div class="stamp-denomination">✈︎</div>
+        <div class="stamp-country">RUSSIA</div>
+        <div class="stamp-year">2025</div>
+        <div class="stamp-taxon">Камчатка</div>
+        <div class="photo-placeholder" style="height: 160px;">
+          <i class="fas fa-volcano"></i> в планах
+        </div>
+        <p>Долина гейзеров, вулканы, Тихий океан.</p>
+      </div>
+      <!-- место 5 -->
+      <div class="stamp travel">
+        <div class="stamp-denomination">✈︎</div>
+        <div class="stamp-country">JAPAN</div>
+        <div class="stamp-year">мечта</div>
+        <div class="stamp-taxon">Хоккайдо</div>
+        <div class="photo-placeholder" style="height: 160px;">
+          <i class="fas fa-snowflake"></i> фестиваль снега
+        </div>
+        <p>Снежные скульптуры, онсэны, рамен.</p>
+      </div>
+      <!-- место 6 -->
+      <div class="stamp travel">
+        <div class="stamp-denomination">✈︎</div>
+        <div class="stamp-country">NORWAY</div>
+        <div class="stamp-year">2026?</div>
+        <div class="stamp-taxon">Лофотены</div>
+        <div class="photo-placeholder" style="height: 160px;">
+          <i class="fas fa-mountain"></i> фьорды
+        </div>
+        <p>Северное сияние, рыболовные деревушки.</p>
+      </div>
+    </div>
+  </section>
 
-</script>
+  <!-- Секция КОНТАКТЫ -->
+  <section id="contact" style="padding-bottom: 150px;">
+    <h2 class="section-title"><i class="fas fa-paper-plane"></i> написать письмо</h2>
+    <div style="display: flex; justify-content: center;">
+      <div class="stamp contact" style="max-width: 700px; width: 100%; background: #f6e9de; text-align: center;">
+        <div class="stamp-denomination"><i class="fa-regular fa-envelope"></i></div>
+        <div class="stamp-country">SINGAPORE · ITMO</div>
+        <div class="stamp-year">✉︎</div>
+        <h3 style="font-size: 2rem; margin-bottom: 1rem;">Елизавета Симина</h3>
+        <div class="stamp-taxon">Amphiprion percula · всегда рада новым знакомствам</div>
+        <div class="contact-links">
+          <a href="#"><i class="fab fa-telegram"></i> @liza_simina</a>
+          <a href="#"><i class="fab fa-github"></i> liza-codes</a>
+          <a href="#"><i class="fas fa-envelope"></i> simina@itmo.ru</a>
+          <a href="#"><i class="fab fa-instagram"></i> @liza.travel</a>
+        </div>
+        <!-- дополнительный штамп -->
+        <div style="margin: 2rem 0 0.5rem; opacity: 0.5; display: flex; justify-content: center; gap: 20px;">
+          <span class="micro-text">版市泉盤槽不</span>
+          <span class="micro-text">CENTS · 1968</span>
+          <span class="micro-text">TRICHOGASTER</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ФУТЕР -->
+  <footer>
+    <div><i class="fas fa-fish"></i>  Симина Елизавета · 1 курс ITMO</div>
+    <div>© 2025 · марочное резюме · вдохновлено рыбами и midnight</div>
+  </footer>
+
+  <!-- Скрипт для смены вертикального текста (из черновика) -->
+  <script>
+    const jpTexts = ["創造","技術","表現","感性","魚","旅行","code","海"];
+    let idx = 0;
+    window.addEventListener('scroll', () => {
+      if (window.scrollY % 150 < 10) {
+        document.getElementById('jpVertical').innerText = jpTexts[idx++ % jpTexts.length];
+      }
+    });
+  </script>
 </body>
 </html>
